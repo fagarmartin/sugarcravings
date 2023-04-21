@@ -20,11 +20,13 @@ class Character {
    // 
     if(this.isMovingRight) // es true cuando se pulsa la tecla,false cuando se deja de pulsar
     {
-        
+        this.img.src = "images/character/char-right.png";
         this.x+=this.speed
+        
     }
      if(this.isMovingLeft)
     {
+        this.img.src = "images/character/char-left.png";
         this.x-=this.speed
         console.log(this.isMovingleft)
     }
