@@ -14,22 +14,22 @@ class Character {
 
   draw = () => {
     ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
-    //console.log("PINTA")
+   
   };
 
   move=()=>{
    // 
-    if(this.isMovingRight) // es true cuando se pulsa la tecla,false cuando se deja de pulsar
+    if(this.isMovingRight && this.x<canvas.width-this.w) // es true cuando se pulsa la tecla,false cuando se deja de pulsar
     {
         this.img.src = "images/character/char-right.png";
         this.x+=this.speed
         
     }
-     if(this.isMovingLeft)
+     if(this.isMovingLeft && this.x>0)
     {
         this.img.src = "images/character/char-left.png";
         this.x-=this.speed
-     //   console.log(this.isMovingleft)
+   
     }
     
   }

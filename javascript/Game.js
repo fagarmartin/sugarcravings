@@ -8,7 +8,10 @@ class Game {
     this.candyArr = [];
     this.respawnGapY = 400;
     this.candyCollisionGap = 20;
-    this.candyCreationGap=50
+    this.candyCreationGap = 50;
+    this.isGameOn=true
+
+    this.arrayCandyColors=["RED","YELLOW"]
     //this.character crear
     //this.caramelo crear mas adelante sera array
   }
@@ -19,16 +22,40 @@ class Game {
     ctx.drawImage(this.background, 0, 0, canvas.width, canvas.height);
   };
 
+  gameOver=()=>{
+
+    if(this.hungryBar<=0)
+    {
+        this.isGameOn=false
+    }
+  }
+
   createCandy = () => {
     if (
       this.candyArr.length === 0 ||
       this.candyArr[this.candyArr.length - 1].y > this.respawnGapY
     ) {
-      let randomPosX = Math.random() * (canvas.width-this.candyCreationGap);
-      let newCandy = new Candy(randomPosX);
+      let randomPosX = Math.random() * (canvas.width - this.candyCreationGap);
+      let newCandy=this.chooseRandomCandy(randomPosX) // hace un random para el color de los caramelos y devuelve el objeto
       this.candyArr.push(newCandy);
+      
     }
   };
+  chooseRandomCandy=(posX)=>{
+    let randomCandy=Math.floor(Math.random()*(this.arrayCandyColors.length))
+    console.log("randomCandy",randomCandy)
+    let newCandy;
+    if(this.arrayCandyColors[randomCandy]==="RED")
+    {
+        newCandy = new CandyRed(posX);
+        return newCandy;
+    }
+    else  if(this.arrayCandyColors[randomCandy]==="YELLOW")
+    {
+        newCandy = new CandyYellow(posX);
+        return newCandy;
+    }
+  }
 
   drawScore = () => {
     ctx.font = "48px serif";
@@ -50,11 +77,16 @@ class Game {
         eachCandy.h + eachCandy.y > this.character.y + this.candyCollisionGap //para que no se elimine justo cuando toca al personaje
       ) {
         this.score += this.candyArr[count].score; // suma la puntuacion de cada caramelo
-        this.hungryBar+=this.candyArr[count].hungryBar
+        this.hungryBar += this.candyArr[count].hungryBar;
         this.candyArr.splice(count, count + 1);
-      } else if (eachCandy.y > canvas.height - (this.character.groundPosition-this.candyCollisionGap)) {
-        this.hungryBar-=this.candyArr[count].hungryBar
+      } else if (
+        eachCandy.y >
+        canvas.height - (this.character.groundPosition - this.candyCollisionGap)
+      ) {
+        this.hungryBar -= this.candyArr[count].hungryBar;
         this.candyArr.splice(count, count + 1);
+        //check game over
+        this.gameOver()
       }
     });
     count++;
@@ -79,7 +111,10 @@ class Game {
     });
     this.drawScore();
     //4. Recursion (requestAnimationFrame)
-
-    requestAnimationFrame(this.gameLoop);
+    if(this.isGameOn)
+    {
+        requestAnimationFrame(this.gameLoop);
+    }
+    
   };
 }

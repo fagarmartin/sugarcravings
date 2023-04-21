@@ -1,4 +1,4 @@
-class Candy {
+class CandyYellow {
   constructor(positionX) {
     this.w = 50;
     this.h = 50;
@@ -6,10 +6,10 @@ class Candy {
     //this.y=0-this.h
     this.y = 0-this.h;
     this.img = new Image();
-    this.img.src = "images/sugar/redcandy.png";
+    this.img.src = "images/sugar/yellowcandy.png";
     this.speedFall = 2;
-    this.score=25
-    this.hungryBar=5
+    this.score=15
+    this.hungryBar=3
     
   }
 
@@ -20,6 +20,4 @@ class Candy {
   move = () => {
     this.y += this.speedFall;
   };
-
-  
 }
