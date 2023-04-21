@@ -1,9 +1,10 @@
 class Character {
   constructor() {
+    this.groundPosition=150 // posicion para que parezca que esta sobre el suelo
     this.w = 80;
     this.h = 65;
     this.x = canvas.width/2;
-    this.y = canvas.height-150; // se pondrá encima del terreno
+    this.y = canvas.height-this.groundPosition; // se pondrá encima del terreno
     this.img = new Image();
     this.img.src = "images/character/char-right.png";
     this.speed=10
@@ -28,7 +29,7 @@ class Character {
     {
         this.img.src = "images/character/char-left.png";
         this.x-=this.speed
-        console.log(this.isMovingleft)
+     //   console.log(this.isMovingleft)
     }
     
   }

@@ -4,6 +4,8 @@ console.log("PROBANDO");
 
 const canvas = document.querySelector("#my-canvas");
 const ctx = canvas.getContext("2d");
+
+const btnStartGame=document.querySelector("#start-btn")
 let gameObj;
 let moveLeftKey="KeyA"
 let moveRightKey="KeyD"
@@ -40,7 +42,9 @@ const checkKeyDown=(event,isMoving)=>{
         gameObj.character.isMovingRight=isMoving
     }
 }
-window.addEventListener("load", startGame); // si no da error, cambiar luego a boton
+//window.addEventListener("load", startGame); // si no da error, cambiar luego a boton
+
+
 window.addEventListener("keydown",(event)=>{
     checkKeyDown(event,true)
 })
@@ -48,3 +52,4 @@ window.addEventListener("keydown",(event)=>{
 window.addEventListener("keyup",(event)=>{
     checkKeyDown(event,false)
 })
+btnStartGame.addEventListener("click",startGame)
