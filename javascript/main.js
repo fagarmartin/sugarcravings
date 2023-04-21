@@ -13,7 +13,7 @@ let moveRightKey="KeyD"
 const startGame = () => {
   
   gameObj = new Game();
-
+  gameObj.chooseRandomCrave()
  
 
   //1. Cambiar las pantallas del juego

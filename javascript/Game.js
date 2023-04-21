@@ -10,8 +10,11 @@ class Game {
     this.candyCollisionGap = 20;
     this.candyCreationGap = 50;
     this.isGameOn=true
+    this.crave;
+    let randomCrave=0 // se usara para ver si es de la clase de esta posicion en arrayCandyColors
 
-    this.arrayCandyColors=["RED","YELLOW"]
+    this.arrayCandyColors=["CandyRed","CandyYellow"]
+    this.arrayCandyImages=["images/sugar/redcandy.png","images/sugar/yellowcandy.png"]
     //this.character crear
     //this.caramelo crear mas adelante sera array
   }
@@ -45,17 +48,23 @@ class Game {
     let randomCandy=Math.floor(Math.random()*(this.arrayCandyColors.length))
     console.log("randomCandy",randomCandy)
     let newCandy;
-    if(this.arrayCandyColors[randomCandy]==="RED")
+    if(this.arrayCandyColors[randomCandy]==="CandyRed")
     {
         newCandy = new CandyRed(posX);
         return newCandy;
     }
-    else  if(this.arrayCandyColors[randomCandy]==="YELLOW")
+    else  if(this.arrayCandyColors[randomCandy]==="CandyYellow")
     {
         newCandy = new CandyYellow(posX);
         return newCandy;
     }
   }
+chooseRandomCrave=()=>{
+    this.randomCrave=Math.floor(Math.random()*(this.arrayCandyColors.length))   
+    this.crave=new Crave(this.arrayCandyImages[this.randomCrave])
+    
+}
+  
 
   drawScore = () => {
     ctx.font = "48px serif";
@@ -109,6 +118,7 @@ class Game {
     this.candyArr.forEach((eachCandy) => {
       eachCandy.draw();
     });
+    this.crave.draw()
     this.drawScore();
     //4. Recursion (requestAnimationFrame)
     if(this.isGameOn)
