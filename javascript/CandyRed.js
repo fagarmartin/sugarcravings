@@ -1,5 +1,5 @@
 class CandyRed  {
-  constructor(positionX) {
+  constructor(positionX,speedLevel) {
   
     this.w = 40;
     this.h = 40;
@@ -19,7 +19,7 @@ class CandyRed  {
     this.y = 0-this.h;
     this.img = new Image();
     this.img.src = "images/sugar/redcandy.png";
-    this.speedFall = 3;
+    this.speedFall = 3+speedLevel;
     this.score=25
     this.hungryBar=10
     

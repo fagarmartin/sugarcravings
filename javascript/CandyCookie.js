@@ -1,5 +1,5 @@
 class CandyCookie {
-  constructor(positionX) {
+  constructor(positionX,speedLevel) {
     this.w = 50;
     this.h = 50;
     if(positionX>=canvas.width)
@@ -16,7 +16,7 @@ class CandyCookie {
     this.y = 0-this.h;
     this.img = new Image();
     this.img.src = "images/sugar/cookie.png";
-    this.speedFall = 4;
+    this.speedFall = 3.8+speedLevel;
     this.score=30
     this.hungryBar=15
     

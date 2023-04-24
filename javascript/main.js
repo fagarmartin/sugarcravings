@@ -1,4 +1,3 @@
-console.log("PROBANDO");
 
 //* VARIABLES GLOBALES
 

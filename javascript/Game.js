@@ -8,24 +8,25 @@ class Game {
     //this.hungryBar = 50; // al principio porcentaje (?)
     this.character = new Character();
     this.candyArr = [];
-    this.respawnGapY = 300; // espacio que recorre el ultimo elemento creado para la creacion de uno nuevo
+    this.respawnGapY = 275; // espacio que recorre el ultimo elemento creado para la creacion de uno nuevo
     this.candyCollisionGap = 20;
     this.candyCreationGap = 50;
     this.isGameOn = true;
     this.crave;
     this.randomCrave = 0; // se usara para ver si es de la clase de esta posicion en arrayCandyColors
-    this.arrayLevels = [0, 150, 250, 350, 450];
+    this.arrayLevels = [0, 100, 200, 300, 400];
     this.arrayIsLevel = [false, false, false, false, false];
     this.maxLevel = this.arrayLevels.length - 1;
     this.currentLevel = 0;
     this.maxHungryBar = 100; // porcentaje maximo
     this.randomLimit = canvas.width - this.candyCreationGap;
 
-    this.arrayCandyColors = ["CandyRed", "CandyYellow", "CandyCookie"];
+    this.arrayCandyColors = ["CandyRed", "CandyYellow", "CandyCookie","CandyCake"];
     this.arrayCandyImages = [
       "images/sugar/redcandy.png",
       "images/sugar/yellowcandy.png",
       "images/sugar/cookie.png",
+      "images/sugar/cake.png"
     ];
     //this.character crear
     //this.caramelo crear mas adelante sera array
@@ -63,13 +64,17 @@ class Game {
     //  console.log("randomCandy", randomCandy);
     let newCandy;
     if (this.arrayCandyColors[randomCandy] === "CandyRed") {
-      newCandy = new CandyRed(posX);
+      newCandy = new CandyRed(posX,this.currentLevel*0.1);
       return newCandy;
     } else if (this.arrayCandyColors[randomCandy] === "CandyYellow") {
-      newCandy = new CandyYellow(posX);
+      newCandy = new CandyYellow(posX,this.currentLevel*0.1);
       return newCandy;
     } else if (this.arrayCandyColors[randomCandy] === "CandyCookie") {
-      newCandy = new CandyCookie(posX);
+      newCandy = new CandyCookie(posX,this.currentLevel*0.1);
+      return newCandy;
+    }
+    else if (this.arrayCandyColors[randomCandy] === "CandyCake") {
+      newCandy = new CandyCake(posX,this.currentLevel*0.1);
       return newCandy;
     }
   };
@@ -154,7 +159,7 @@ class Game {
       // console.log("SUBE DE NIVEL", this.currentLevel);
       this.arrayIsLevel[this.currentLevel] = true;
       this.currentLevel++;
-      this.respawnGapY -= 50;
+      this.respawnGapY -= 35;
     }
   };
   gameLoop = () => {
@@ -167,17 +172,19 @@ class Game {
     this.candyArr.forEach((eachCandy) => {
       eachCandy.move();
     });
-    this.checkCollisionCandy();
+    
     //3. Dibujado de los elementos
     this.drawBackground();
     this.character.draw();
     this.candyArr.forEach((eachCandy) => {
       eachCandy.draw();
     });
+    this.checkCollisionCandy();
     this.crave.draw();
     this.drawScore(); 
     this.hungerBarUI.draw();
     this.changeDifficulty();
+    
     //4. Recursion (requestAnimationFrame)
     if (this.isGameOn) {
       requestAnimationFrame(this.gameLoop);
