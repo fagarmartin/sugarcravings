@@ -1,7 +1,36 @@
-
 /* CANVAS */
 
-#my-canvas{
-   
-    background-color: lightgray;
+#my-canvas {
+  background-color: lightgray;
+  display: none;
+}
+#splash-screen {
+  width: 900px;
+  height: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #c2e5f1;
+}
+#logo {
+  width: 400px;
+  margin: 15px 0;
+}
+#omnom {
+  height: 319px;
+  width: 439px;
+  margin: 15px;
+}
+/*  START BUTTOn  */
+
+#start-btn {
+  width: 300px;
+  height: 100px;
+  background: url("../images/screens/splashscreen/playnormal.png") no-repeat;
+}
+#start-btn:hover {
+  width: 300px;
+  height: 100px;
+  background: url("../images/screens/splashscreen/playpressed.png") no-repeat;
+  cursor: pointer;
 }

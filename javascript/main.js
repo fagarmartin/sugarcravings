@@ -5,16 +5,17 @@ console.log("PROBANDO");
 const canvas = document.querySelector("#my-canvas");
 const ctx = canvas.getContext("2d");
 
-const btnStartGame=document.querySelector("#start-btn")
+const splashScreenDOM = document.querySelector("#splash-screen");
+const btnStartGame = document.querySelector("#start-btn");
 let gameObj;
-let moveLeftKey="KeyA"
-let moveRightKey="KeyD"
+let moveLeftKey = "KeyA";
+let moveRightKey = "KeyD";
 
 const startGame = () => {
-  
+  splashScreenDOM.style.display = "none";
+  canvas.style.display = "block";
   gameObj = new Game();
-  gameObj.chooseRandomCrave()
- 
+  gameObj.chooseRandomCrave();
 
   //1. Cambiar las pantallas del juego
   // todo
@@ -25,31 +26,23 @@ const startGame = () => {
   gameObj.gameLoop();
 };
 
-
-
 //comprueba hacia donde esta moviendose segun tecla presionada y pone la variable a true
-const checkKeyDown=(event,isMoving)=>{
-    
-    if(event.code===moveLeftKey && gameObj !== undefined)
-    {   
-        
-        gameObj.character.isMovingLeft=isMoving
-       // console.log("MOVELEFT",gameObj.character.isMovingLeft)
-    }
-    else if (event.code===moveRightKey && gameObj !== undefined)
-    {
-        //console.log("MOVERIGHT")
-        gameObj.character.isMovingRight=isMoving
-    }
-}
+const checkKeyDown = (event, isMoving) => {
+  if (event.code === moveLeftKey && gameObj !== undefined) {
+    gameObj.character.isMovingLeft = isMoving;
+    // console.log("MOVELEFT",gameObj.character.isMovingLeft)
+  } else if (event.code === moveRightKey && gameObj !== undefined) {
+    //console.log("MOVERIGHT")
+    gameObj.character.isMovingRight = isMoving;
+  }
+};
 //window.addEventListener("load", startGame); // si no da error, cambiar luego a boton
 
+window.addEventListener("keydown", (event) => {
+  checkKeyDown(event, true);
+});
 
-window.addEventListener("keydown",(event)=>{
-    checkKeyDown(event,true)
-})
-
-window.addEventListener("keyup",(event)=>{
-    checkKeyDown(event,false)
-})
-btnStartGame.addEventListener("click",startGame)
+window.addEventListener("keyup", (event) => {
+  checkKeyDown(event, false);
+});
+btnStartGame.addEventListener("click", startGame);

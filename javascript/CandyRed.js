@@ -1,9 +1,15 @@
 class CandyRed  {
   constructor(positionX) {
   
-    this.w = 50;
-    this.h = 50;
-    this.x = positionX; // hacer aleatorio
+    this.w = 40;
+    this.h = 40;
+    if(this.x>=canvas.height)
+    {
+      this.x=positionX-this.w
+    }
+    else{
+      this.x=positionX
+    }
     //this.y=0-this.h
     this.y = 0-this.h;
     this.img = new Image();

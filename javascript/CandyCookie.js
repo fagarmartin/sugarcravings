@@ -1,7 +1,7 @@
-class CandyYellow {
+class CandyCookie {
   constructor(positionX) {
-    this.w = 45;
-    this.h = 45;
+    this.w = 50;
+    this.h = 50;
     if(this.x>=canvas.height)
     {
       this.x=positionX-this.w
@@ -9,14 +9,12 @@ class CandyYellow {
     else{
       this.x=positionX
     }
-    this.x = positionX-this.w; // hacer aleatorio
-    //this.y=0-this.h
     this.y = 0-this.h;
     this.img = new Image();
-    this.img.src = "images/sugar/yellowcandy.png";
-    this.speedFall = 3;
-    this.score=15
-    this.hungryBar=3
+    this.img.src = "images/sugar/cookie.png";
+    this.speedFall = 4;
+    this.score=30
+    this.hungryBar=6
     
   }
 
