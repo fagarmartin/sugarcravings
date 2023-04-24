@@ -6,7 +6,10 @@ class CandyCookie {
     {
       this.x=positionX-this.w
     }
-    else{
+    else if(positionX<=this.w)
+    {
+      positionX+=this.w
+    }else{
       this.x=positionX
     }
    
@@ -15,7 +18,7 @@ class CandyCookie {
     this.img.src = "images/sugar/cookie.png";
     this.speedFall = 4;
     this.score=30
-    this.hungryBar=6
+    this.hungryBar=15
     
   }
 

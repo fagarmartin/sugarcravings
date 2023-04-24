@@ -6,9 +6,13 @@ class CandyYellow {
     {
       this.x=positionX-this.w
     }
-    else{
+    else if(positionX<=this.w)
+    {
+      positionX+=this.w
+    }else{
       this.x=positionX
     }
+   
    
     this.x = positionX-this.w; // hacer aleatorio
     //this.y=0-this.h
@@ -17,7 +21,7 @@ class CandyYellow {
     this.img.src = "images/sugar/yellowcandy.png";
     this.speedFall = 3;
     this.score=15
-    this.hungryBar=3
+    this.hungryBar=5
     
   }
 
