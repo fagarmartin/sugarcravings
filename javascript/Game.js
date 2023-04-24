@@ -9,7 +9,7 @@ class Game {
     this.character = new Character();
     this.candyArr = [];
     this.respawnGapY = 225; // espacio que recorre el ultimo elemento creado para la creacion de uno nuevo
-    this.candyCollisionGap = 20;
+    this.candyCollisionGap = 30;
     this.candyCreationGap = 50;
     this.isGameOn = true;
     this.crave;
@@ -131,14 +131,14 @@ class Game {
         } else {
           this.hungerBarUI.value -= candyHungryBar;
         }
-
+          
         
       } else if (
         eachCandy.y >
         canvas.height - (this.character.groundPosition - this.candyCollisionGap)
       ) {
         //check game over
-        console.log(this.candyArr[count].constructor.name,this.candyArr[count].y)
+       // console.log(this.candyArr[count].constructor.name,this.candyArr[count].y)
         let candyHungryBar=this.candyArr[count].hungryBar
         this.candyArr.splice(count, count + 1);
         if (this.checkCrave(eachCandy, count)) {
@@ -174,6 +174,7 @@ class Game {
     //2. Acciones y movimiento de los elementos
 
     this.character.move();
+    this.checkCollisionCandy();
     this.createCandy();
     this.candyArr.forEach((eachCandy) => {
       eachCandy.move();
@@ -185,7 +186,7 @@ class Game {
     this.candyArr.forEach((eachCandy) => {
       eachCandy.draw();
     });
-    this.checkCollisionCandy();
+    
     this.crave.draw();
     this.drawScore(); 
     this.hungerBarUI.draw();

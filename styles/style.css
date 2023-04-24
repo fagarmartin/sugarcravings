@@ -9,6 +9,21 @@
    
     
 }
+/* animar logo arriba y abajo*/
+
+img.animate-logo{
+    -webkit-animation: animate-logo  2s infinite  alternate;
+    animation: animate-logo  2s infinite  alternate;
+}
+@-webkit-keyframes animate-logo {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-20px); }
+}
+@keyframes animate-logo {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-20px); }
+}
+
 #pause-msg{
     display: none;
     font-family: 'Roboto', sans-serif;
@@ -61,7 +76,7 @@
 }
 #logo {
   width: 400px;
-  margin: 10px 0;
+  margin-top: 35px;
 }
 #omnom {
   height: 213px;
