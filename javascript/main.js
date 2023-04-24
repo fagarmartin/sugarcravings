@@ -6,11 +6,19 @@ const canvas = document.querySelector("#my-canvas");
 const ctx = canvas.getContext("2d");
 
 const splashScreenDOM = document.querySelector("#splash-screen");
+const gameOverScreenDOM=document.querySelector("#game-over")
 const btnStartGame = document.querySelector("#start-btn");
+const btnRestartGame=document.querySelector("#restart-btn")
+
 let gameObj;
 let moveLeftKey = "KeyA";
 let moveRightKey = "KeyD";
 
+const restartGame=()=>{  
+    
+    gameOverScreenDOM.style.display="none"
+    startGame()
+}
 const startGame = () => {
   splashScreenDOM.style.display = "none";
   canvas.style.display = "block";
@@ -46,3 +54,4 @@ window.addEventListener("keyup", (event) => {
   checkKeyDown(event, false);
 });
 btnStartGame.addEventListener("click", startGame);
+btnRestartGame.addEventListener("click",restartGame)

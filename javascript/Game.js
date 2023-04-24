@@ -18,6 +18,7 @@ class Game {
     this.maxLevel = this.arrayLevels.length - 1;
     this.currentLevel = 0;
     this.maxHungryBar = 100; // porcentaje maximo
+    this.randomLimit=canvas.width - this.candyCreationGap
 
     this.arrayCandyColors = ["CandyRed", "CandyYellow", "CandyCookie"];
     this.arrayCandyImages = [
@@ -36,8 +37,12 @@ class Game {
   };
 
   gameOver = () => {
+  
     if (this.hungryBar <= 0) {
+    
       this.isGameOn = false;
+      gameOverScreenDOM.style.display="block"
+      canvas.style.display="none"
     }
   };
 
@@ -48,7 +53,9 @@ class Game {
       this.candyArr[this.candyArr.length - 1].y > this.respawnGapY
     ) {
       //let randomPosX = Math.random() * (canvas.width - this.candyCreationGap);
-      let randomPosX = Math.random() * (canvas.width - this.candyCreationGap);
+      
+      let randomPosX = Math.random() * this.randomLimit;
+      
       let newCandy = this.chooseRandomCandy(randomPosX); // hace un random para el color de los caramelos y devuelve el objeto
       this.candyArr.push(newCandy);
     }
@@ -124,13 +131,16 @@ class Game {
           // si se ha caido un caramelo bueno vuelve a hacer random
           this.hungryBar -= this.candyArr[count].hungryBar;
 
-          this.gameOver();
+          
           this.chooseRandomCrave();
         }
+       
         this.candyArr.splice(count, count + 1);
       }
+
     });
     count++;
+    this.gameOver();
   };
   changeDifficulty = () => {
     

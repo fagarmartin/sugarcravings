@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;1,500&family=Rubik+Pixels&display=swap');
+
 /* CANVAS */
 
 #my-canvas {
@@ -6,22 +8,57 @@
 }
 #splash-screen {
   width: 900px;
-  height: 700px;
+  height: 750px;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #c2e5f1;
 }
+#movements{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 15px;
+    
+}
+#moveleft,moveright{
+    padding:0 20px ;
+}
+#movements img{
+    margin-right: 15px;
+    
+}
+#key{
+    width:50px;
+    height:50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+   /* background: url("../images/screens/splashscreen/key.png") no-repeat;*/
+}
 #logo {
   width: 400px;
-  margin: 15px 0;
+  margin: 10px 0;
 }
 #omnom {
-  height: 319px;
-  width: 439px;
-  margin: 15px;
+  height: 213px;
+  width: 300px;
+  margin: 25px;
 }
-/*  START BUTTOn  */
+#how-to-play{
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(255,255,255,0.5);
+    border-radius: 15px ;
+    padding: 10px 10px 20px 10px;
+    margin-bottom: 15px;
+    color:cornflowerblue;
+    font-weight: bold;
+}
 
 #start-btn {
   width: 300px;
@@ -34,3 +71,38 @@
   background: url("../images/screens/splashscreen/playpressed.png") no-repeat;
   cursor: pointer;
 }
+
+/* GAME OVER SCREEN*/
+#game-over-screen{
+    display:none;
+}
+#game-over{
+    width: 900px;
+    height: 700px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #fcf1d5;
+    
+}
+#game-over-logo
+{
+    width: 600px;
+    margin: 40px 0;
+}
+
+#restart-btn {
+    width: 300px;
+    height: 100px;
+    background: url("../images/screens/gameover/restartnormal.png") no-repeat;
+  }
+  #restart-btn:hover {
+    width: 300px;
+    height: 100px;
+    background: url("../images/screens/gameover/restartpressed.png") no-repeat;
+    cursor: pointer;
+  }
+
+  #omnom-gameover{
+    margin: 50px 0;
+  }

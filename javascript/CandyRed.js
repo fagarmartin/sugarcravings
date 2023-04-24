@@ -3,13 +3,14 @@ class CandyRed  {
   
     this.w = 40;
     this.h = 40;
-    if(this.x>=canvas.height)
+    if(positionX>=canvas.width)
     {
       this.x=positionX-this.w
     }
     else{
       this.x=positionX
     }
+    
     //this.y=0-this.h
     this.y = 0-this.h;
     this.img = new Image();

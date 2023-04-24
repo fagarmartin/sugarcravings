@@ -2,13 +2,14 @@ class CandyYellow {
   constructor(positionX) {
     this.w = 45;
     this.h = 45;
-    if(this.x>=canvas.height)
+    if(positionX>=canvas.width)
     {
       this.x=positionX-this.w
     }
     else{
       this.x=positionX
     }
+   
     this.x = positionX-this.w; // hacer aleatorio
     //this.y=0-this.h
     this.y = 0-this.h;
