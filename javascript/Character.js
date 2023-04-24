@@ -10,6 +10,13 @@ class Character {
     this.speed=10
     this.isMovingRight=false
     this.isMovingLeft=false
+    this.walkingRightSpriteFolder="images/character/walking-right/"
+    this.maxSpritesNum=15
+    this.countSprite=1
+    this.animating;
+    this.now;
+    this.then;
+
   }
 
   draw = () => {
@@ -21,8 +28,9 @@ class Character {
    // 
     if(this.isMovingRight && this.x<canvas.width-this.w) // es true cuando se pulsa la tecla,false cuando se deja de pulsar
     {
-        this.img.src = "images/character/char-right.png";
-        this.x+=this.speed
+       this.img.src = "images/character/char-right.png";       
+       this.x+=this.speed 
+     
         
     }
      if(this.isMovingLeft && this.x>0)
@@ -32,7 +40,10 @@ class Character {
    
     }
     
+    
   }
+
+
  
 
 }

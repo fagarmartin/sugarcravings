@@ -8,7 +8,7 @@ class Game {
     //this.hungryBar = 50; // al principio porcentaje (?)
     this.character = new Character();
     this.candyArr = [];
-    this.respawnGapY = 275; // espacio que recorre el ultimo elemento creado para la creacion de uno nuevo
+    this.respawnGapY = 225; // espacio que recorre el ultimo elemento creado para la creacion de uno nuevo
     this.candyCollisionGap = 20;
     this.candyCreationGap = 50;
     this.isGameOn = true;
@@ -42,7 +42,7 @@ class Game {
     if (this.hungerBarUI.value <= 0) {
       this.isGameOn = false;
       gameOverScreenDOM.style.display = "block";
-      canvas.style.display = "none";
+      gameDOM.style.display = "none";
     }
   };
 
@@ -111,38 +111,44 @@ class Game {
         eachCandy.h + eachCandy.y > this.character.y + this.candyCollisionGap //para que no se elimine justo cuando toca al personaje
       ) {
         let isCrave = this.checkCrave(eachCandy, count); // checkea si es el caramelo correcto y actualiza score
+        let candyHungryBar=this.candyArr[count].hungryBar
+        let candyScore=this.candyArr[count].score
+        
+        this.candyArr.splice(count, count + 1);
         if (isCrave) {
-          this.score += this.candyArr[count].score; // suma la puntuacion de cada caramelo
+          this.score += candyScore; // suma la puntuacion de cada caramelo
           if (
             this.hungerBarUI.value <
-            this.maxHungryBar - this.candyArr[count].hungryBar
+            this.maxHungryBar - candyHungryBar
           )
           {
-            this.hungerBarUI.value += this.candyArr[count].hungryBar; // solo descuenta barra hambre si deja caer el carameo del antojo
+            this.hungerBarUI.value += candyHungryBar; // solo descuenta barra hambre si deja caer el carameo del antojo
           }
           else{
             this.hungerBarUI.value=this.maxHungryBar
           }
             
         } else {
-          this.hungerBarUI.value -= this.candyArr[count].hungryBar;
+          this.hungerBarUI.value -= candyHungryBar;
         }
 
-        this.candyArr.splice(count, count + 1);
+        
       } else if (
         eachCandy.y >
         canvas.height - (this.character.groundPosition - this.candyCollisionGap)
       ) {
         //check game over
-
+        console.log(this.candyArr[count].constructor.name,this.candyArr[count].y)
+        let candyHungryBar=this.candyArr[count].hungryBar
+        this.candyArr.splice(count, count + 1);
         if (this.checkCrave(eachCandy, count)) {
           // si se ha caido un caramelo bueno vuelve a hacer random
-          this.hungerBarUI.value -= this.candyArr[count].hungryBar;
+          this.hungerBarUI.value -= candyHungryBar;
 
           this.chooseRandomCrave();
         }
 
-        this.candyArr.splice(count, count + 1);
+        
       }
     });
     count++;

@@ -1,10 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;1,500&family=Rubik+Pixels&display=swap');
 
 /* CANVAS */
+#menu-game{
+    height: 50px;
+    width: 850px;
+    display: flex;
+    justify-content: space-between;
+   
+    
+}
+#pause-msg{
+    display: none;
+    font-family: 'Roboto', sans-serif;
+    font-size: 25px;
+    text-align: center;
+    width:700px;
+    padding-top: 10px;
+    color:darkcyan;
+    
+}
+#game{
+    display: none;
+}
 
 #my-canvas {
   background-color: lightgray;
-  display: none;
+  
 }
 #splash-screen {
   width: 900px;
@@ -71,7 +92,20 @@
   background: url("../images/screens/splashscreen/playpressed.png") no-repeat;
   cursor: pointer;
 }
-
+#btn-pause{
+    width: 104px;
+    height: 50px;
+    background: url("../images/screens/game/pausanormal.png") no-repeat;
+    cursor: pointer;
+    
+}
+#btn-pause:hover{
+    width: 104px;
+    height: 50px;
+    background: url("../images/screens/game/pausapressed.png") no-repeat;
+    cursor: pointer;
+    
+}
 /* GAME OVER SCREEN*/
 #game-over-screen{
     display:none;

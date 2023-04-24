@@ -1,13 +1,14 @@
-
 //* VARIABLES GLOBALES
 
 const canvas = document.querySelector("#my-canvas");
 const ctx = canvas.getContext("2d");
-
+const gameDOM = document.querySelector("#game");
 const splashScreenDOM = document.querySelector("#splash-screen");
 const gameOverScreenDOM = document.querySelector("#game-over-screen");
 const btnStartGame = document.querySelector("#start-btn");
 const btnRestartGame = document.querySelector("#restart-btn");
+const btnPauseGame = document.querySelector("#btn-pause");
+const msgPause = document.querySelector("#pause-msg");
 
 let gameObj;
 let moveLeftKey = "KeyA";
@@ -19,7 +20,7 @@ const restartGame = () => {
 };
 const startGame = () => {
   splashScreenDOM.style.display = "none";
-  canvas.style.display = "block";
+  gameDOM.style.display = "block";
   gameObj = new Game();
   gameObj.chooseRandomCrave();
 
@@ -40,7 +41,17 @@ const checkKeyDown = (event, isMoving) => {
     gameObj.character.isMovingRight = isMoving;
   }
 };
+const pause = () => {
+  if (gameObj.isGameOn) {
+    msgPause.style.display = "block";
+    gameObj.isGameOn = false;
+  } else {
+    gameObj.isGameOn = true;
 
+    msgPause.style.display = "none";
+    gameObj.gameLoop();
+  }
+};
 window.addEventListener("keydown", (event) => {
   checkKeyDown(event, true);
 });
@@ -50,3 +61,4 @@ window.addEventListener("keyup", (event) => {
 });
 btnStartGame.addEventListener("click", startGame);
 btnRestartGame.addEventListener("click", restartGame);
+btnPauseGame.addEventListener("click", pause);

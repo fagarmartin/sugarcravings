@@ -12,10 +12,15 @@
 <body>
 
     <div class="container">
-        <canvas id="my-canvas" width="850" height="700">
+        <div id="game">
 
-        </canvas>
+            <canvas id="my-canvas" width="850" height="600">
 
+            </canvas>
+            <div id="menu-game">
+                <div id="btn-pause"></div><div id="pause-msg">The game is paused!</div>
+            </div>
+        </div>
         <div id="splash-screen">
 
             <img id="logo" src="images/screens/splashscreen/logo.png">
@@ -34,23 +39,25 @@
 
         </div>
         <div id="game-over-screen">
-        <div id="game-over">
-            <img id="game-over-logo" src="images/screens/gameover/gameoverlogo.png">
-            <img id="omnom-gameover" src="/images/screens/gameover/omnom.png">
-            <div id="restart-btn">
+            <div id="game-over">
+                <img id="game-over-logo" src="images/screens/gameover/gameoverlogo.png">
+                <img id="omnom-gameover" src="/images/screens/gameover/omnom.png">
+                <div id="restart-btn">
 
+                </div>
             </div>
         </div>
-        </div>
+    </div>
 
-        <script src="./javascript/main.js"></script>
-        <script src="./javascript/Game.js"></script>
-        <script src="./javascript/Character.js"></script>
-        <script src="javascript/CandyRed.js"></script>
-        <script src="javascript/CandyYellow.js"></script>
-        <script src="/javascript/Crave.js"></script>
-        <script src="/javascript/CandyCookie.js"></script>
-        <script src="/javascript/HungerBar.js"></script>
-        <script src="/javascript/CandyCake.js"></script>
 
+<script src="./javascript/main.js"></script>
+<script src="./javascript/Game.js"></script>
+<script src="./javascript/Character.js"></script>
+<script src="javascript/CandyRed.js"></script>
+<script src="javascript/CandyYellow.js"></script>
+<script src="/javascript/Crave.js"></script>
+<script src="/javascript/CandyCookie.js"></script>
+<script src="/javascript/HungerBar.js"></script>
+<script src="/javascript/CandyCake.js"></script>
+</body>
 </html>
