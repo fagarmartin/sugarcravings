@@ -43,7 +43,7 @@ class Character {
 
   move=()=>{
    // 
-    if(this.isMovingRight && this.x<canvas.width-this.w && !this.isEating) // es true cuando se pulsa la tecla,false cuando se deja de pulsar
+    if(this.isMovingRight && this.x<canvas.width-this.w ) // es true cuando se pulsa la tecla,false cuando se deja de pulsar
     {
        this.img=this.walkingRightImg     
        this.x+=this.speed 

@@ -14,7 +14,7 @@ class Game {
     this.isGameOn = true;
     this.crave;
     this.randomCrave = 0; // se usara para ver si es de la clase de esta posicion en arrayCandyColors
-    this.arrayLevels = [0, 100, 200, 300, 400];
+    this.arrayLevels = [0, 125, 250, 400, 600];
     this.arrayIsLevel = [false, false, false, false, false];
     this.maxLevel = this.arrayLevels.length - 1;
     this.currentLevel = 0;
@@ -122,8 +122,8 @@ class Game {
     }
   };
   checkCollisionCandy = () => {
-    let count = 0;
-    this.candyArr.forEach((eachCandy) => {
+  
+    this.candyArr.forEach((eachCandy,count) => {
       if ( //colisiona con personaje
         eachCandy.x < this.character.x + this.character.w &&
         eachCandy.x + eachCandy.w > this.character.x &&
@@ -134,7 +134,7 @@ class Game {
         let candyHungryBar = this.candyArr[count].hungryBar;
         let candyScore = this.candyArr[count].score;
 
-        this.candyArr.splice(count, count + 1);
+        this.candyArr.splice(count, 1);
         if (isCrave) {
           
 
@@ -155,10 +155,10 @@ class Game {
         eachCandy.y >
         canvas.height - (this.character.groundPosition - this.candyCollisionGap)
       ) {
-        //check game over
-        // console.log(this.candyArr[count].constructor.name,this.candyArr[count].y)
+      
         let candyHungryBar = this.candyArr[count].hungryBar;
-        this.candyArr.splice(count, count + 1);
+       this.candyArr.splice(count, 1);
+       this.candyArr.splice()
         if (this.checkCrave(eachCandy, count)) {
           // si se ha caido un caramelo bueno vuelve a hacer random
           this.hungerBarUI.value -= candyHungryBar;
@@ -167,7 +167,7 @@ class Game {
         }
       }
     });
-    count++;
+   
     this.gameOver();
   };
   changeDifficulty = () => {
