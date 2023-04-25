@@ -11,6 +11,8 @@ const btnPauseGame = document.querySelector("#btn-pause");
 
 const msgPause = document.querySelector("#pause-msg");
 
+const audioIntro=document.querySelector("#audio-intro")
+
 
 /*para actualizar score*/ 
 
@@ -27,6 +29,9 @@ const restartGame = () => {
   startGame();
 };
 const startGame = () => {
+  audioIntro.volume=0.3
+  audioIntro.play()
+  
   splashScreenDOM.style.display = "none";
   gameDOM.style.display = "block";
   gameObj = new Game();
@@ -53,8 +58,10 @@ const pause = () => {
   if (gameObj.isGameOn) {
     msgPause.style.display = "block";
     gameObj.isGameOn = false;
+    audioIntro.pause()
   } else {
     gameObj.isGameOn = true;
+    audioIntro.play()
 
     msgPause.style.display = "none";
     gameObj.gameLoop();

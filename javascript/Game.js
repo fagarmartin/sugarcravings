@@ -8,7 +8,7 @@ class Game {
     //this.hungryBar = 50; // al principio porcentaje (?)
     this.character = new Character();
     this.candyArr = [];
-    this.respawnGapY = 225; // espacio que recorre el ultimo elemento creado para la creacion de uno nuevo
+    this.respawnGapY = 200; // espacio que recorre el ultimo elemento creado para la creacion de uno nuevo
     this.candyCollisionGap = 30;
     this.candyCreationGap = 50;
     this.isGameOn = true;
@@ -33,8 +33,6 @@ class Game {
       "images/sugar/cookie.png",
       "images/sugar/cake.png",
     ];
-    //this.character crear
-    //this.caramelo crear mas adelante sera array
   }
   clearCanvas = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -53,17 +51,22 @@ class Game {
         yourScoreDOM.innerText = this.score; // muestra la puntuacion en el game over
         highScoreDOM.innerText = this.score;
         localStorage.setItem("score", this.score); // guarda la puntuacion de manera local
-
       } else {
         msgImproved.style.display = "none";
         yourScoreDOM.innerText = this.score;
         highScoreDOM.innerText = maxScore;
       }
-
+      this.pausarAudio();
       this.isGameOn = false;
       gameOverScreenDOM.style.display = "block";
       gameDOM.style.display = "none";
+      
     }
+  };
+
+  pausarAudio = () => {
+    audioIntro.pause(); // para audio de intro
+    audioIntro.currentTime = 0;
   };
 
   createCandy = (tipoCandy) => {

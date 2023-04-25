@@ -37,7 +37,9 @@ img.animate-logo{
 #game{
     display: none;
 }
-
+#audio-intro{
+  display: none;
+}
 #my-canvas {
   background-color: lightgray;
   
