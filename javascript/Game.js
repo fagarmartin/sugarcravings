@@ -124,7 +124,7 @@ class Game {
   checkCollisionCandy = () => {
     let count = 0;
     this.candyArr.forEach((eachCandy) => {
-      if (
+      if ( //colisiona con personaje
         eachCandy.x < this.character.x + this.character.w &&
         eachCandy.x + eachCandy.w > this.character.x &&
         eachCandy.y < this.character.y + this.character.h &&
@@ -136,6 +136,8 @@ class Game {
 
         this.candyArr.splice(count, count + 1);
         if (isCrave) {
+          
+          audioEating.play()
           this.score += candyScore; // suma la puntuacion de cada caramelo
           if (this.hungerBarUI.value < this.maxHungryBar - candyHungryBar) {
             this.hungerBarUI.value += candyHungryBar; // solo descuenta barra hambre si deja caer el carameo del antojo
@@ -143,6 +145,7 @@ class Game {
             this.hungerBarUI.value = this.maxHungryBar;
           }
         } else {
+          audioDisgust.play()
           this.hungerBarUI.value -= candyHungryBar;
         }
       } else if (

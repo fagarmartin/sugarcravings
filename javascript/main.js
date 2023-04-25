@@ -12,7 +12,12 @@ const btnPauseGame = document.querySelector("#btn-pause");
 const msgPause = document.querySelector("#pause-msg");
 
 const audioIntro=document.querySelector("#audio-intro")
+/* audios*/
+const audioEating=new Audio()
+audioEating.src="sounds/eating.mp3"
 
+const audioDisgust=new Audio()
+audioDisgust.src="sounds/disgusted.mp3"
 
 /*para actualizar score*/ 
 
@@ -28,10 +33,14 @@ const restartGame = () => {
   gameOverScreenDOM.style.display = "none";
   startGame();
 };
-const startGame = () => {
+
+const startAudio=()=>{
   audioIntro.volume=0.3
   audioIntro.play()
-  
+}
+const startGame = () => {
+ 
+  startAudio()
   splashScreenDOM.style.display = "none";
   gameDOM.style.display = "block";
   gameObj = new Game();
