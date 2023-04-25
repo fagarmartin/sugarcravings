@@ -17,6 +17,17 @@ class Character {
     this.now;
     this.then;
 
+    this.isEating=false
+
+    this.eatingImg=new Image()
+    this.eatingImg.src="images/character/char-eat-crave.png"
+
+    this.walkingRightImg=new Image()
+    this.walkingRightImg.src="images/character/char-right.png"
+    
+    this.walkingLeftImg=new Image()
+    this.walkingLeftImg.src="images/character/char-left.png"
+
   }
 
   draw = () => {
@@ -26,21 +37,32 @@ class Character {
 
   move=()=>{
    // 
-    if(this.isMovingRight && this.x<canvas.width-this.w) // es true cuando se pulsa la tecla,false cuando se deja de pulsar
+    if(this.isMovingRight && this.x<canvas.width-this.w && !this.isEating) // es true cuando se pulsa la tecla,false cuando se deja de pulsar
     {
-       this.img.src = "images/character/char-right.png";       
+       this.img=this.walkingRightImg     
        this.x+=this.speed 
      
         
     }
-     if(this.isMovingLeft && this.x>0)
+     if(this.isMovingLeft && this.x>0 && !this.isEating)
     {
-        this.img.src = "images/character/char-left.png";
+        this.img = this.walkingLeftImg
         this.x-=this.speed
    
-    }
+    }    
     
-    
+  }
+ 
+
+  stopEat=()=>{
+    this.isEating=false
+  }
+
+  startEat=()=>{
+
+    this.isEating=true
+    this.img=this.eatingImg
+    setTimeout(this.stopEat,50)
   }
 
 
