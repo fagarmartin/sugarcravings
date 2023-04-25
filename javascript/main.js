@@ -8,22 +8,21 @@ const gameOverScreenDOM = document.querySelector("#game-over-screen");
 const btnStartGame = document.querySelector("#start-btn");
 const btnRestartGame = document.querySelector("#restart-btn");
 const btnPauseGame = document.querySelector("#btn-pause");
+const btnSoundGame = document.querySelector(".btn-sound");
 
 const msgPause = document.querySelector("#pause-msg");
 
-const audioIntro=document.querySelector("#audio-intro")
-/* audios*/
-const audioEating=new Audio()
-audioEating.src="sounds/eating.mp3"
+const audioIntro = document.querySelector("#audio-intro");
 
-const audioDisgust=new Audio()
-audioDisgust.src="sounds/disgusted.mp3"
 
-/*para actualizar score*/ 
+const audioDisgust = new Audio();
+audioDisgust.src = "sounds/disgusted.mp3";
 
-const yourScoreDOM=document.querySelector("#your-score")
-const highScoreDOM=document.querySelector("#high-score")
-const msgImproved=document.querySelector("#improved")
+/*para actualizar score*/
+
+const yourScoreDOM = document.querySelector("#your-score");
+const highScoreDOM = document.querySelector("#high-score");
+const msgImproved = document.querySelector("#improved");
 
 let gameObj;
 let moveLeftKey = "KeyA";
@@ -34,13 +33,12 @@ const restartGame = () => {
   startGame();
 };
 
-const startAudio=()=>{
-  audioIntro.volume=0.3
-  audioIntro.play()
-}
+const startAudio = () => {
+  audioIntro.volume = 0.3;
+  audioIntro.play();
+};
 const startGame = () => {
- 
-  startAudio()
+  startAudio();
   splashScreenDOM.style.display = "none";
   gameDOM.style.display = "block";
   gameObj = new Game();
@@ -67,10 +65,13 @@ const pause = () => {
   if (gameObj.isGameOn) {
     msgPause.style.display = "block";
     gameObj.isGameOn = false;
-    audioIntro.pause()
+    audioIntro.pause();
   } else {
+    // solo si la musica no esta pausada
     gameObj.isGameOn = true;
-    audioIntro.play()
+    if (!btnSoundGame.classList.contains("off")) {
+      audioIntro.play();
+    }
 
     msgPause.style.display = "none";
     gameObj.gameLoop();
@@ -86,3 +87,15 @@ window.addEventListener("keyup", (event) => {
 btnStartGame.addEventListener("click", startGame);
 btnRestartGame.addEventListener("click", restartGame);
 btnPauseGame.addEventListener("click", pause);
+btnSoundGame.addEventListener("click", () => {
+  btnSoundGame.classList.toggle("off");
+  if (
+    audioIntro.paused &&
+    gameObj.isGameOn &&
+    !btnSoundGame.classList.contains("off")
+  ) {
+    audioIntro.play();
+  } else {
+    audioIntro.pause();
+  }
+});

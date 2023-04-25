@@ -29,7 +29,7 @@ img.animate-logo{
     font-family: 'Roboto', sans-serif;
     font-size: 25px;
     text-align: center;
-    width:700px;
+    width:500px;
     padding-top: 10px;
     color:darkcyan;
     
@@ -43,6 +43,20 @@ img.animate-logo{
 #my-canvas {
   background-color: lightgray;
   
+}
+
+.btn-sound
+{
+  width:75px;
+  height: 75px;
+  background: url("../images/screens/game/soundon.png") no-repeat; 
+  cursor:pointer;
+  
+}
+
+
+.off{
+  background: url("../images/screens/game/soundoff.png") no-repeat; 
 }
 #splash-screen {
   width: 900px;

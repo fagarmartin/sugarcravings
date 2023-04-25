@@ -22,6 +22,7 @@ class CandyRed  {
     this.speedFall = 4+speedLevel;
     this.score=25
     this.hungryBar=10
+    this.restHungryBar=15
     
   }
 

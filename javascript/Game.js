@@ -60,7 +60,6 @@ class Game {
       this.isGameOn = false;
       gameOverScreenDOM.style.display = "block";
       gameDOM.style.display = "none";
-      
     }
   };
 
@@ -121,25 +120,25 @@ class Game {
       return false;
     }
   };
+
   checkCollisionCandy = () => {
-  
-    this.candyArr.forEach((eachCandy,count) => {
-      if ( //colisiona con personaje
+    this.candyArr.forEach((eachCandy, count) => {
+      if (
+        //colisiona con personaje
         eachCandy.x < this.character.x + this.character.w &&
         eachCandy.x + eachCandy.w > this.character.x &&
         eachCandy.y < this.character.y + this.character.h &&
         eachCandy.h + eachCandy.y > this.character.y + this.candyCollisionGap //para que no se elimine justo cuando toca al personaje
       ) {
         let isCrave = this.checkCrave(eachCandy, count); // checkea si es el caramelo correcto y actualiza score
-        let candyHungryBar = this.candyArr[count].hungryBar;
+        let candyHungryBar = this.candyArr[count].restHungryBar;
         let candyScore = this.candyArr[count].score;
 
         this.candyArr.splice(count, 1);
-        if (isCrave) {
-          
 
-          this.character.startEatCrave() // empieza a comer
-          audioEating.play()
+        if (isCrave) {
+          this.character.startEatCrave(); // empieza a comer
+
           this.score += candyScore; // suma la puntuacion de cada caramelo
           if (this.hungerBarUI.value < this.maxHungryBar - candyHungryBar) {
             this.hungerBarUI.value += candyHungryBar; // solo descuenta barra hambre si deja caer el carameo del antojo
@@ -147,18 +146,17 @@ class Game {
             this.hungerBarUI.value = this.maxHungryBar;
           }
         } else {
-          this.character.startDisgusted()
-          audioDisgust.play()
+          this.character.startDisgusted();
+
           this.hungerBarUI.value -= candyHungryBar;
         }
       } else if (
         eachCandy.y >
         canvas.height - (this.character.groundPosition - this.candyCollisionGap)
       ) {
-      
         let candyHungryBar = this.candyArr[count].hungryBar;
-       this.candyArr.splice(count, 1);
-       this.candyArr.splice()
+        this.candyArr.splice(count, 1);
+        this.candyArr.splice();
         if (this.checkCrave(eachCandy, count)) {
           // si se ha caido un caramelo bueno vuelve a hacer random
           this.hungerBarUI.value -= candyHungryBar;
@@ -167,7 +165,7 @@ class Game {
         }
       }
     });
-   
+
     this.gameOver();
   };
   changeDifficulty = () => {

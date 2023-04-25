@@ -19,6 +19,7 @@ class CandyCookie {
     this.speedFall = 3.8+speedLevel;
     this.score=30
     this.hungryBar=15
+    this.restHungryBar=10
     
   }
 
