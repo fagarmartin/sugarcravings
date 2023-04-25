@@ -6,11 +6,11 @@ class Character {
     this.x = canvas.width/2;
     this.y = canvas.height-this.groundPosition; // se pondrá encima del terreno
     this.img = new Image();
-    this.img.src = "images/character/char-right.png";
+    this.img.src = "images/character/char-idle.png";
     this.speed=8.5
     this.isMovingRight=false
     this.isMovingLeft=false
-    this.walkingRightSpriteFolder="images/character/walking-right/"
+    //this.walkingRightSpriteFolder="images/character/walking-right/"
     this.maxSpritesNum=15
     this.countSprite=1
     this.animating;
@@ -27,6 +27,12 @@ class Character {
     
     this.walkingLeftImg=new Image()
     this.walkingLeftImg.src="images/character/char-left.png"
+
+    this.idleImg=new Image()
+    this.idleImg.src="images/character/char-idle.png"
+
+    this.disgustedImg=new Image()
+    this.disgustedImg.src="images/character/char-disgusted.png"
 
   }
 
@@ -56,13 +62,20 @@ class Character {
 
   stopEat=()=>{
     this.isEating=false
+    this.img=this.idleImg
   }
 
-  startEat=()=>{
+  startEatCrave=()=>{
 
     this.isEating=true
     this.img=this.eatingImg
     setTimeout(this.stopEat,50)
+  }
+
+  startDisgusted=()=>{
+    this.isEating=true
+    this.img=this.disgustedImg
+    setTimeout(this.stopEat,65)
   }
 
 

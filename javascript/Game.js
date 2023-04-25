@@ -138,7 +138,7 @@ class Game {
         if (isCrave) {
           
 
-          this.character.startEat() // empieza a comer
+          this.character.startEatCrave() // empieza a comer
           audioEating.play()
           this.score += candyScore; // suma la puntuacion de cada caramelo
           if (this.hungerBarUI.value < this.maxHungryBar - candyHungryBar) {
@@ -147,6 +147,7 @@ class Game {
             this.hungerBarUI.value = this.maxHungryBar;
           }
         } else {
+          this.character.startDisgusted()
           audioDisgust.play()
           this.hungerBarUI.value -= candyHungryBar;
         }
