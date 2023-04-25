@@ -8,7 +8,15 @@ const gameOverScreenDOM = document.querySelector("#game-over-screen");
 const btnStartGame = document.querySelector("#start-btn");
 const btnRestartGame = document.querySelector("#restart-btn");
 const btnPauseGame = document.querySelector("#btn-pause");
+
 const msgPause = document.querySelector("#pause-msg");
+
+
+/*para actualizar score*/ 
+
+const yourScoreDOM=document.querySelector("#your-score")
+const highScoreDOM=document.querySelector("#high-score")
+const msgImproved=document.querySelector("#improved")
 
 let gameObj;
 let moveLeftKey = "KeyA";

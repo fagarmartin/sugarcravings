@@ -5,7 +5,7 @@ class HungerBar{
         this.y=15
         this.w=200
         this.h=20
-        this.value=50
+        this.value=30
     }
 
 
@@ -27,7 +27,7 @@ class HungerBar{
         {
             ctx.fillStyle="yellow"
         }
-        else{
+        else if(this.value<30){
             ctx.fillStyle="red"
         }
         ctx.fillRect(this.x,this.y,valorProp,this.h)

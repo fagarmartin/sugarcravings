@@ -21,12 +21,17 @@ class Game {
     this.maxHungryBar = 100; // porcentaje maximo
     this.randomLimit = canvas.width - this.candyCreationGap;
 
-    this.arrayCandyColors = ["CandyRed", "CandyYellow", "CandyCookie","CandyCake"];
+    this.arrayCandyColors = [
+      "CandyRed",
+      "CandyYellow",
+      "CandyCookie",
+      "CandyCake",
+    ];
     this.arrayCandyImages = [
       "images/sugar/redcandy.png",
       "images/sugar/yellowcandy.png",
       "images/sugar/cookie.png",
-      "images/sugar/cake.png"
+      "images/sugar/cake.png",
     ];
     //this.character crear
     //this.caramelo crear mas adelante sera array
@@ -40,6 +45,21 @@ class Game {
 
   gameOver = () => {
     if (this.hungerBarUI.value <= 0) {
+      let maxScore = localStorage.getItem("score");
+
+      if (this.score > maxScore) {
+        // si supera la puntuacion maxima guardada
+        msgImproved.style.display = "block";
+        yourScoreDOM.innerText = this.score; // muestra la puntuacion en el game over
+        highScoreDOM.innerText = this.score;
+        localStorage.setItem("score", this.score); // guarda la puntuacion de manera local
+
+      } else {
+        msgImproved.style.display = "none";
+        yourScoreDOM.innerText = this.score;
+        highScoreDOM.innerText = maxScore;
+      }
+
       this.isGameOn = false;
       gameOverScreenDOM.style.display = "block";
       gameDOM.style.display = "none";
@@ -51,8 +71,6 @@ class Game {
       this.candyArr.length === 0 ||
       this.candyArr[this.candyArr.length - 1].y > this.respawnGapY
     ) {
-      //let randomPosX = Math.random() * (canvas.width - this.candyCreationGap);
-
       let randomPosX = Math.random() * this.randomLimit;
 
       let newCandy = this.chooseRandomCandy(randomPosX); // hace un random para el color de los caramelos y devuelve el objeto
@@ -64,17 +82,16 @@ class Game {
     //  console.log("randomCandy", randomCandy);
     let newCandy;
     if (this.arrayCandyColors[randomCandy] === "CandyRed") {
-      newCandy = new CandyRed(posX,this.currentLevel*0.1);
+      newCandy = new CandyRed(posX, this.currentLevel * 0.1);
       return newCandy;
     } else if (this.arrayCandyColors[randomCandy] === "CandyYellow") {
-      newCandy = new CandyYellow(posX,this.currentLevel*0.1);
+      newCandy = new CandyYellow(posX, this.currentLevel * 0.1);
       return newCandy;
     } else if (this.arrayCandyColors[randomCandy] === "CandyCookie") {
-      newCandy = new CandyCookie(posX,this.currentLevel*0.1);
+      newCandy = new CandyCookie(posX, this.currentLevel * 0.1);
       return newCandy;
-    }
-    else if (this.arrayCandyColors[randomCandy] === "CandyCake") {
-      newCandy = new CandyCake(posX,this.currentLevel*0.1);
+    } else if (this.arrayCandyColors[randomCandy] === "CandyCake") {
+      newCandy = new CandyCake(posX, this.currentLevel * 0.1);
       return newCandy;
     }
   };
@@ -89,7 +106,7 @@ class Game {
     ctx.fillStyle = "white";
     ctx.fillText(this.score, canvas.width - 100, 50);
 
-   /* ctx.font = "48px serif"; hace la funcion la barra 
+    /* ctx.font = "48px serif"; hace la funcion la barra 
     ctx.fillStyle = "white";
     ctx.fillText(this.hungerBarUI.value, 50, 50);*/
   };
@@ -111,35 +128,27 @@ class Game {
         eachCandy.h + eachCandy.y > this.character.y + this.candyCollisionGap //para que no se elimine justo cuando toca al personaje
       ) {
         let isCrave = this.checkCrave(eachCandy, count); // checkea si es el caramelo correcto y actualiza score
-        let candyHungryBar=this.candyArr[count].hungryBar
-        let candyScore=this.candyArr[count].score
-        
+        let candyHungryBar = this.candyArr[count].hungryBar;
+        let candyScore = this.candyArr[count].score;
+
         this.candyArr.splice(count, count + 1);
         if (isCrave) {
           this.score += candyScore; // suma la puntuacion de cada caramelo
-          if (
-            this.hungerBarUI.value <
-            this.maxHungryBar - candyHungryBar
-          )
-          {
+          if (this.hungerBarUI.value < this.maxHungryBar - candyHungryBar) {
             this.hungerBarUI.value += candyHungryBar; // solo descuenta barra hambre si deja caer el carameo del antojo
+          } else {
+            this.hungerBarUI.value = this.maxHungryBar;
           }
-          else{
-            this.hungerBarUI.value=this.maxHungryBar
-          }
-            
         } else {
           this.hungerBarUI.value -= candyHungryBar;
         }
-          
-        
       } else if (
         eachCandy.y >
         canvas.height - (this.character.groundPosition - this.candyCollisionGap)
       ) {
         //check game over
-       // console.log(this.candyArr[count].constructor.name,this.candyArr[count].y)
-        let candyHungryBar=this.candyArr[count].hungryBar
+        // console.log(this.candyArr[count].constructor.name,this.candyArr[count].y)
+        let candyHungryBar = this.candyArr[count].hungryBar;
         this.candyArr.splice(count, count + 1);
         if (this.checkCrave(eachCandy, count)) {
           // si se ha caido un caramelo bueno vuelve a hacer random
@@ -147,8 +156,6 @@ class Game {
 
           this.chooseRandomCrave();
         }
-
-        
       }
     });
     count++;
@@ -179,19 +186,19 @@ class Game {
     this.candyArr.forEach((eachCandy) => {
       eachCandy.move();
     });
-    
+
     //3. Dibujado de los elementos
     this.drawBackground();
     this.character.draw();
     this.candyArr.forEach((eachCandy) => {
       eachCandy.draw();
     });
-    
+
     this.crave.draw();
-    this.drawScore(); 
+    this.drawScore();
     this.hungerBarUI.draw();
     this.changeDifficulty();
-    
+
     //4. Recursion (requestAnimationFrame)
     if (this.isGameOn) {
       requestAnimationFrame(this.gameLoop);

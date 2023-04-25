@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;1,500&family=Rubik+Pixels&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;1,500&family=Sigmar&display=swap');
 
 /* CANVAS */
 #menu-game{
     height: 50px;
     width: 850px;
     display: flex;
-    justify-content: space-between;
-   
+    justify-content: space-between;   
     
 }
 /* animar logo arriba y abajo*/
@@ -136,7 +136,7 @@ img.animate-logo{
 }
 #game-over-logo
 {
-    width: 600px;
+    width: 500px;
     margin: 40px 0;
 }
 
@@ -153,5 +153,21 @@ img.animate-logo{
   }
 
   #omnom-gameover{
-    margin: 50px 0;
+    margin: 20px 0;
+  }
+  #score{
+    font-family: 'Sigmar', cursive;
+    font-size: 30px;  
+    color:peru;    
+    
+  }
+  #your-score{
+    padding-right: 15px;
+  }
+  #improved{
+    font-family: 'Sigmar', cursive;
+    font-size: 20px;   
+    color:goldenrod;
+    display:none;
+   
   }
