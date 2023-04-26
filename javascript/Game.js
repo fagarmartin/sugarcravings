@@ -4,7 +4,7 @@ class Game {
     this.hungerBarUI = new HungerBar();
     this.background = new Image();
     this.background.src = "images/background.png";
-    this.score = 0; // depende del caramelo
+    this.score=new Score(); // depende del caramelo
     //this.hungryBar = 50; // al principio porcentaje (?)
     this.character = new Character();
     this.candyArr = [];
@@ -23,7 +23,7 @@ class Game {
     this.isInmortal = false;
     this.maxRandomBlackBug=50000
     this.minRandomBlackBug=25000
-
+    this.damage=45 // daño que hace el bicho al chocar con el personaje
     this.arrayCandyColors = [
       "CandyRed",
       "CandyYellow",
@@ -52,15 +52,15 @@ class Game {
       if (this.hungerBarUI.value <= 0) {
         let maxScore = localStorage.getItem("score");
 
-        if (this.score > maxScore) {
+        if (this.score.value > maxScore) {
           // si supera la puntuacion maxima guardada
           msgImproved.style.display = "block";
-          yourScoreDOM.innerText = this.score; // muestra la puntuacion en el game over
-          highScoreDOM.innerText = this.score;
-          localStorage.setItem("score", this.score); // guarda la puntuacion de manera local
+          yourScoreDOM.innerText = this.score.value; // muestra la puntuacion en el game over
+          highScoreDOM.innerText = this.score.value;
+          localStorage.setItem("score", this.score.value); // guarda la puntuacion de manera local
         } else {
           msgImproved.style.display = "none";
-          yourScoreDOM.innerText = this.score;
+          yourScoreDOM.innerText = this.score.value;
           highScoreDOM.innerText = maxScore;
         }
         this.pausarAudio();
@@ -112,15 +112,6 @@ class Game {
     this.candyCreationGap -= 50; // cree los elementos más rápido
   };
 
-  drawScore = () => {
-    ctx.font = "48px serif";
-    ctx.fillStyle = "white";
-    ctx.fillText(this.score, canvas.width - 100, 50);
-
-    /* ctx.font = "48px serif"; hace la funcion la barra 
-    ctx.fillStyle = "white";
-    ctx.fillText(this.hungerBarUI.value, 50, 50);*/
-  };
   checkCrave = (candy, count) => {
     if (this.arrayCandyColors[this.randomCrave] === candy.constructor.name) {
       //saber si es la clase ?
@@ -148,7 +139,7 @@ class Game {
         if (isCrave) {
           this.character.startEatCrave(); // empieza a comer
 
-          this.score += candyScore; // suma la puntuacion de cada caramelo
+          this.score.value += candyScore; // suma la puntuacion de cada caramelo
           if (this.hungerBarUI.value < this.maxHungryBar - candyHungryBar) {
             this.hungerBarUI.value += candyHungryBar; // solo descuenta barra hambre si deja caer el carameo del antojo
           } else {
@@ -183,6 +174,7 @@ class Game {
     if (this.blackBugs .length>0) {
       
         //colisiona con personaje
+        
         this.blackBugs.forEach((eachBug,index)=>{
           if (
             eachBug.x < this.character.x + this.character.w &&
@@ -191,17 +183,34 @@ class Game {
             eachBug.h + eachBug.y >
               this.character.y + this.candyCollisionGap //para que no se elimine justo cuando toca al personaje
           ) {
-            console.log("COLISIONA CON BICHO");
-            this.hungerBarUI.value = 0;
+           if(eachBug.canDamage)
+           {
+            this.score.value -= eachBug.damage;
+            this.score.value=this.checkScoreZero(this.score.value)
+            eachBug.doDamage()
+           }
+            
           }
-          if (eachBug.canGo) {
+          if (eachBug.canGo) { // cuando ha dado X vueltas desaparece
             this.blackBugs.splice(index,1) ;
           }
         })
         
       
     }
+    this.gameOver();
   };
+
+  checkScoreZero=(score)=>{ 
+    if(score<0)
+    {
+      return 0
+    }
+    else{
+      return score
+    }
+
+  }
 
   createBlackBug=()=>{
     let movingDir=Math.floor(Math.random()*2)
@@ -212,13 +221,13 @@ class Game {
   changeDifficulty = () => {
     if (
       !this.arrayIsLevel[this.currentLevel] &&
-      this.score >= this.arrayLevels[this.currentLevel] &&
+      this.score.value >= this.arrayLevels[this.currentLevel] &&
       this.currentLevel < this.arrayLevels.length - 1
     ) {
       // para que solo entre una vez
     
-      setTimeout(this.createBlackBug,Math.random() * (this.maxRandomBlackBug - this.minRandomBlackBug) + this.minRandomBlackBug);
-      
+      //setTimeout(this.createBlackBug,Math.random() * (this.maxRandomBlackBug - this.minRandomBlackBug) + this.minRandomBlackBug);
+      setTimeout(this.createBlackBug,10000);
       // console.log("SUBE DE NIVEL", this.currentLevel);
       this.arrayIsLevel[this.currentLevel] = true;
       this.currentLevel++;
@@ -255,7 +264,7 @@ class Game {
     })     
     
 
-    this.drawScore();
+    this.score.draw();
     this.hungerBarUI.draw();
     this.changeDifficulty();
 

@@ -23,6 +23,8 @@ class BlackBug {
     this.canGo=false
     this.countMove=0
     this.maxCountMove=1
+    this.canDamage=true
+    this.damage=100 // resta al score si choca con el personaje
     
   }
 
@@ -80,4 +82,13 @@ class BlackBug {
     }
   
   };
+
+  doDamage=()=>{
+    this.canDamage=false
+    setTimeout(()=>{
+      this.canDamage=true
+      console.log("DO DAMAGE TRUE")
+    },3000)
+
+  }
 }
