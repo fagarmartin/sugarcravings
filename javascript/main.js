@@ -14,10 +14,6 @@ const msgPause = document.querySelector("#pause-msg");
 
 const audioIntro = document.querySelector("#audio-intro");
 
-
-const audioDisgust = new Audio();
-audioDisgust.src = "sounds/disgusted.mp3";
-
 /*para actualizar score*/
 
 const yourScoreDOM = document.querySelector("#your-score");

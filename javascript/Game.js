@@ -14,12 +14,15 @@ class Game {
     this.isGameOn = true;
     this.crave;
     this.randomCrave = 0; // se usara para ver si es de la clase de esta posicion en arrayCandyColors
-    this.arrayLevels = [0, 125, 250, 400, 600];
+    this.arrayLevels = [0, 125, 400, 700, 900];
     this.arrayIsLevel = [false, false, false, false, false];
     this.maxLevel = this.arrayLevels.length - 1;
     this.currentLevel = 0;
     this.maxHungryBar = 100; // porcentaje maximo
     this.randomLimit = canvas.width - this.candyCreationGap;
+    this.isInmortal = false;
+    this.maxRandomBlackBug=50000
+    this.minRandomBlackBug=25000
 
     this.arrayCandyColors = [
       "CandyRed",
@@ -33,6 +36,8 @@ class Game {
       "images/sugar/cookie.png",
       "images/sugar/cake.png",
     ];
+    this.blackBugs = [];
+    
   }
   clearCanvas = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -42,24 +47,27 @@ class Game {
   };
 
   gameOver = () => {
-    if (this.hungerBarUI.value <= 0) {
-      let maxScore = localStorage.getItem("score");
+    if (!this.isInmortal) {
+      // para testear
+      if (this.hungerBarUI.value <= 0) {
+        let maxScore = localStorage.getItem("score");
 
-      if (this.score > maxScore) {
-        // si supera la puntuacion maxima guardada
-        msgImproved.style.display = "block";
-        yourScoreDOM.innerText = this.score; // muestra la puntuacion en el game over
-        highScoreDOM.innerText = this.score;
-        localStorage.setItem("score", this.score); // guarda la puntuacion de manera local
-      } else {
-        msgImproved.style.display = "none";
-        yourScoreDOM.innerText = this.score;
-        highScoreDOM.innerText = maxScore;
+        if (this.score > maxScore) {
+          // si supera la puntuacion maxima guardada
+          msgImproved.style.display = "block";
+          yourScoreDOM.innerText = this.score; // muestra la puntuacion en el game over
+          highScoreDOM.innerText = this.score;
+          localStorage.setItem("score", this.score); // guarda la puntuacion de manera local
+        } else {
+          msgImproved.style.display = "none";
+          yourScoreDOM.innerText = this.score;
+          highScoreDOM.innerText = maxScore;
+        }
+        this.pausarAudio();
+        this.isGameOn = false;
+        gameOverScreenDOM.style.display = "block";
+        gameDOM.style.display = "none";
       }
-      this.pausarAudio();
-      this.isGameOn = false;
-      gameOverScreenDOM.style.display = "block";
-      gameDOM.style.display = "none";
     }
   };
 
@@ -73,15 +81,16 @@ class Game {
       this.candyArr.length === 0 ||
       this.candyArr[this.candyArr.length - 1].y > this.respawnGapY
     ) {
-      let randomPosX = Math.random() * this.randomLimit;
-
+      let randomPosX = Math.random() *  this.randomLimit ;
+       // console.log(randomPosX)
+      //  console.log(0>=randomPosX)
       let newCandy = this.chooseRandomCandy(randomPosX); // hace un random para el color de los caramelos y devuelve el objeto
       this.candyArr.push(newCandy);
     }
   };
   chooseRandomCandy = (posX) => {
-    let randomCandy = Math.floor(Math.random() * this.arrayCandyColors.length);
-    //  console.log("randomCandy", randomCandy);
+    let randomCandy = Math.floor(Math.random() * (this.arrayCandyColors.length-0));
+     
     let newCandy;
     if (this.arrayCandyColors[randomCandy] === "CandyRed") {
       newCandy = new CandyRed(posX, this.currentLevel * 0.1);
@@ -155,19 +164,51 @@ class Game {
         canvas.height - (this.character.groundPosition - this.candyCollisionGap)
       ) {
         let candyHungryBar = this.candyArr[count].hungryBar;
-        this.candyArr.splice(count, 1);
-        this.candyArr.splice();
+       
+        
         if (this.checkCrave(eachCandy, count)) {
           // si se ha caido un caramelo bueno vuelve a hacer random
           this.hungerBarUI.value -= candyHungryBar;
-
+          console.log("CHOCA CARAMELO BUENO",eachCandy.constructor.name,eachCandy.x,eachCandy.y)
           this.chooseRandomCrave();
         }
+        this.candyArr.splice(count, 1);
       }
     });
 
     this.gameOver();
   };
+  checkCollisionBug = () => {
+   
+    if (this.blackBugs .length>0) {
+      
+        //colisiona con personaje
+        this.blackBugs.forEach((eachBug,index)=>{
+          if (
+            eachBug.x < this.character.x + this.character.w &&
+            eachBug.x + eachBug.w > this.character.x &&
+            eachBug.y < this.character.y + this.character.h &&
+            eachBug.h + eachBug.y >
+              this.character.y + this.candyCollisionGap //para que no se elimine justo cuando toca al personaje
+          ) {
+            console.log("COLISIONA CON BICHO");
+            this.hungerBarUI.value = 0;
+          }
+          if (eachBug.canGo) {
+            this.blackBugs.splice(index,1) ;
+          }
+        })
+        
+      
+    }
+  };
+
+  createBlackBug=()=>{
+    let movingDir=Math.floor(Math.random()*2)
+    //console.log("MOVINGDIR",movingDir)    
+    this.blackBugs.push(new BlackBug(movingDir))
+  }
+
   changeDifficulty = () => {
     if (
       !this.arrayIsLevel[this.currentLevel] &&
@@ -175,7 +216,9 @@ class Game {
       this.currentLevel < this.arrayLevels.length - 1
     ) {
       // para que solo entre una vez
-
+    
+      setTimeout(this.createBlackBug,Math.random() * (this.maxRandomBlackBug - this.minRandomBlackBug) + this.minRandomBlackBug);
+      
       // console.log("SUBE DE NIVEL", this.currentLevel);
       this.arrayIsLevel[this.currentLevel] = true;
       this.currentLevel++;
@@ -189,11 +232,16 @@ class Game {
 
     this.character.move();
     this.checkCollisionCandy();
+
+    this.checkCollisionBug();
+
     this.createCandy();
     this.candyArr.forEach((eachCandy) => {
       eachCandy.move();
     });
-
+    this.blackBugs.forEach((eachBug)=>{
+      eachBug.move();
+    })
     //3. Dibujado de los elementos
     this.drawBackground();
     this.character.draw();
@@ -202,6 +250,11 @@ class Game {
     });
 
     this.crave.draw();
+    this.blackBugs.forEach((eachBug)=>{
+      eachBug.draw();
+    })     
+    
+
     this.drawScore();
     this.hungerBarUI.draw();
     this.changeDifficulty();

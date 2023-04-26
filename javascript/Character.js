@@ -82,7 +82,8 @@ class Character {
   };
   playAudio = (audio) => {
     
-    if (!btnSoundGame.classList.contains("off")) {     
+    if (!btnSoundGame.classList.contains("off")) {    
+       
       audio.play(); // solo llama a la funcion si true
     }
   };
