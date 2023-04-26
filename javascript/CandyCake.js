@@ -9,7 +9,7 @@ class CandyCake {
       else if(positionX<=this.w)
       {
         
-        this.x=this.w*2
+        this.x=this.w
      //  console.log("ENTRA X",this.x)
       }else{
         this.x=positionX

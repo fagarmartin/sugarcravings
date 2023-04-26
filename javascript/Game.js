@@ -10,7 +10,7 @@ class Game {
     this.candyArr = [];
     this.respawnGapY = 200; // espacio que recorre el ultimo elemento creado para la creacion de uno nuevo
     this.candyCollisionGap = 30;
-    this.candyCreationGap = 50;
+    this.candyCreationGap = 80;
     this.isGameOn = true;
     this.crave;
     this.randomCrave = 0; // se usara para ver si es de la clase de esta posicion en arrayCandyColors

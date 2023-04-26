@@ -7,7 +7,7 @@ class Character {
     this.y = canvas.height - this.groundPosition; // se pondrá encima del terreno
     this.img = new Image();
     this.img.src = "images/character/char-idle.png";
-    this.speed = 8.5;
+    this.speed = 9;
     this.isMovingRight = false;
     this.isMovingLeft = false;
     //this.walkingRightSpriteFolder="images/character/walking-right/"

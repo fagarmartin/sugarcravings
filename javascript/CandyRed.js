@@ -9,14 +9,12 @@ class CandyRed  {
     }
     else if(positionX<=this.w)
     {
-      this.x=this.w*2
+      this.x=this.w
     //  console.log("ENTRA X",this.x)
     }else{
       this.x=positionX
-    }
-   
+    }   
     
-    //this.y=0-this.h
     this.y = 0-this.h;
     this.img = new Image();
     this.img.src = "images/sugar/redcandy.png";
