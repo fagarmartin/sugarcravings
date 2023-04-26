@@ -82,7 +82,7 @@ class Game {
       this.candyArr[this.candyArr.length - 1].y > this.respawnGapY
     ) {
       let randomPosX = Math.random() *  this.randomLimit ;
-       // console.log(randomPosX)
+      //console.log(randomPosX)
       //  console.log(0>=randomPosX)
       let newCandy = this.chooseRandomCandy(randomPosX); // hace un random para el color de los caramelos y devuelve el objeto
       this.candyArr.push(newCandy);

@@ -10,7 +10,7 @@ class CandyCake {
       {
         
         this.x=this.w*2
-        //console.log("ENTRA X",this.x)
+     //  console.log("ENTRA X",this.x)
       }else{
         this.x=positionX
       }
