@@ -12,7 +12,8 @@ const btnSoundGame = document.querySelector(".btn-sound");
 
 const msgPause = document.querySelector("#pause-msg");
 
-const audioIntro = document.querySelector("#audio-intro");
+const audioIntro = new Audio();
+audioIntro.src = "sounds/intro.mp3";
 
 /*para actualizar score*/
 
@@ -84,7 +85,7 @@ btnStartGame.addEventListener("click", startGame);
 btnRestartGame.addEventListener("click", restartGame);
 btnPauseGame.addEventListener("click", pause);
 btnSoundGame.addEventListener("click", () => {
-  btnSoundGame.classList.toggle("off");
+  btnSoundGame.classList.toggle("off"); //comprueba si el juego esta pausado para darle a play al audio
   if (
     audioIntro.paused &&
     gameObj.isGameOn &&
@@ -95,3 +96,4 @@ btnSoundGame.addEventListener("click", () => {
     audioIntro.pause();
   }
 });
+//window.addEventListener("load", startAudio);

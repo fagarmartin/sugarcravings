@@ -160,7 +160,7 @@ class Game {
         if (this.checkCrave(eachCandy, count)) {
           // si se ha caido un caramelo bueno vuelve a hacer random
           this.hungerBarUI.value -= candyHungryBar;
-          console.log("CHOCA CARAMELO BUENO",eachCandy.constructor.name,eachCandy.x,eachCandy.y)
+         
           this.chooseRandomCrave();
         }
         this.candyArr.splice(count, 1);
@@ -188,6 +188,7 @@ class Game {
             this.score.value -= eachBug.damage;
             this.score.value=this.checkScoreZero(this.score.value)
             eachBug.doDamage()
+            this.character.damageScore()
            }
             
           }
@@ -226,8 +227,8 @@ class Game {
     ) {
       // para que solo entre una vez
     
-      //setTimeout(this.createBlackBug,Math.random() * (this.maxRandomBlackBug - this.minRandomBlackBug) + this.minRandomBlackBug);
-      setTimeout(this.createBlackBug,10000);
+      setTimeout(this.createBlackBug,Math.random() * (this.maxRandomBlackBug - this.minRandomBlackBug) + this.minRandomBlackBug);
+      //setTimeout(this.createBlackBug,10000);
       // console.log("SUBE DE NIVEL", this.currentLevel);
       this.arrayIsLevel[this.currentLevel] = true;
       this.currentLevel++;

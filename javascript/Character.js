@@ -34,14 +34,34 @@ class Character {
     this.disgustedImg = new Image();
     this.disgustedImg.src = "images/character/char-disgusted.png";
 
+    //damaged walking
+    this.isDamaged = false;
+
+    this.damagedWalkRightImg = new Image();
+    this.damagedWalkRightImg.src = "images/character/damaged/char-right.png";
+
+    this.damagedWalkLeftImg = new Image();
+    this.damagedWalkLeftImg.src = "images/character/damaged/char-left.png";
+
+    this.damagedIdleImg = new Image();
+    this.damagedIdleImg.src = "images/character/damaged/char-idle.png";
+
+    this.damagedDisgustedImg = new Image();
+    this.damagedDisgustedImg.src =
+      "images/character/damaged/char-disgusted.png";
+
+    this.damagedEatingImg = new Image();
+    this.damagedEatingImg.src = "images/character/damaged/char-eat-crave.png";
+
     /* audios*/
     this.audioEating = new Audio();
     this.audioEating.src = "sounds/eating.mp3";
 
-    
     this.audioDisgust = new Audio();
     this.audioDisgust.src = "sounds/disgusted.mp3";
-   
+
+    this.audioDamage = new Audio();
+    this.audioDamage.src = "sounds/damage.mp3";
   }
 
   draw = () => {
@@ -52,39 +72,69 @@ class Character {
     //
     if (this.isMovingRight && this.x < canvas.width - this.w) {
       // es true cuando se pulsa la tecla,false cuando se deja de pulsar
-      this.img = this.walkingRightImg;
+      if (!this.isDamaged) {
+        this.img = this.walkingRightImg;
+      } else {
+        this.img = this.damagedWalkRightImg;
+      }
+
       this.x += this.speed;
     }
     if (this.isMovingLeft && this.x > 0 && !this.isEating) {
-      this.img = this.walkingLeftImg;
+      if (!this.isDamaged) {
+        this.img = this.walkingLeftImg;
+      } else {
+        this.img = this.damagedWalkLeftImg;
+      }
       this.x -= this.speed;
     }
   };
 
   stopEat = () => {
     this.isEating = false;
-    this.img = this.idleImg;
+    if (!this.isDamaged) {
+      this.img = this.idleImg;
+    } else {
+      this.img = this.damagedIdleImg;
+    }
   };
 
   startEatCrave = () => {
-    this.playAudio(this.audioEating); 
-    
+    this.playAudio(this.audioEating);
+
     this.isEating = true;
-    this.img = this.eatingImg;
+    if (!this.isDamaged) {
+      this.img = this.eatingImg;
+    } else {
+      this.img = this.damagedEatingImg;
+    }
+
     setTimeout(this.stopEat, 50);
   };
 
   startDisgusted = () => {
-    this.playAudio(this.audioDisgust); 
+    this.playAudio(this.audioDisgust);
     this.isEating = true;
-    this.img = this.disgustedImg;
+    if (!this.isDamaged) {
+      this.img = this.disgustedImg;
+    } else {
+      this.img = this.damagedIdleImg;
+    }
     setTimeout(this.stopEat, 65);
   };
   playAudio = (audio) => {
-    
-    if (!btnSoundGame.classList.contains("off")) {    
-       
+    if (!btnSoundGame.classList.contains("off")) {
       audio.play(); // solo llama a la funcion si true
     }
+  };
+  damageScore = () => {
+    this.isDamaged = true;
+    console.log("ENTRA AUDIO DAÑO");
+    //this.audioDamage.volume=0.8
+    this.audioDamage.play();
+    this.img = this.damagedDisgustedImg;
+    setTimeout(() => {
+      this.isDamaged = false;
+    }, 2000);
   };
 }

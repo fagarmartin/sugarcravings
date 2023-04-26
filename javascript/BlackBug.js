@@ -84,6 +84,7 @@ class BlackBug {
   };
 
   doDamage=()=>{
+    
     this.canDamage=false
     setTimeout(()=>{
       this.canDamage=true
