@@ -207,7 +207,7 @@ class Game {
            // this.score.value -= eachBug.damage;
             this.score.value=this.checkScoreZero(this.score.value)
             eachBug.doDamage()
-            this.character.restScore()
+            this.character.damageScore()
            }
             
           }
@@ -246,8 +246,8 @@ class Game {
     ) {
       // para que solo entre una vez
     
-      setTimeout(this.createBlackBug,Math.random() * (this.maxRandomBlackBug - this.minRandomBlackBug) + this.minRandomBlackBug);
-      //setTimeout(this.createBlackBug,1000);
+      //setTimeout(this.createBlackBug,Math.random() * (this.maxRandomBlackBug - this.minRandomBlackBug) + this.minRandomBlackBug);
+      setTimeout(this.createBlackBug,1000);
       // console.log("SUBE DE NIVEL", this.currentLevel);
       this.arrayIsLevel[this.currentLevel] = true;
       this.currentLevel++;

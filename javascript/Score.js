@@ -37,7 +37,5 @@ class Score {
     
   };
 
-  restScore=()=>{
-    this.value -= candyScore;
-  }
+ 
 }
