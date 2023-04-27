@@ -6,6 +6,8 @@ class HungerBar{
         this.w=200
         this.h=20
         this.value=30
+        this.canLoseValue = true; // se pondra a false X tiempo cuando se cambie el caramelo bueno, para no perder vida en ese tiempo
+        this.timeFreeze=5000
     }
 
 
@@ -31,5 +33,25 @@ class HungerBar{
             ctx.fillStyle="red"
         }
         ctx.fillRect(this.x,this.y,valorProp,this.h)
+    }
+    valueFreeze=()=>{ // sera llamado cuando cambie el caramelo bueno para dejar un margen de reaccion al usuario
+        this.canLoseValue=false
+     //   console.log("VALUE FREEZE",this.canLoseValue)
+        setTimeout(() => {
+            this.canLoseValue=true
+            //console.log("VALUE FREEZE OUT",this.canLoseValue)
+        }, this.timeFreeze);
+    }
+
+    sumValue=(eachScore)=>{
+        this.value+=eachScore
+    }
+
+    restValue=(eachScore)=>{
+        if(this.canLoseValue)
+        {
+            this.value-=eachScore
+        }
+        
     }
 }

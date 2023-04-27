@@ -107,9 +107,20 @@ class Game {
     }
   };
   chooseRandomCrave = () => {
-    this.randomCrave = Math.floor(Math.random() * this.arrayCandyColors.length);
-    this.crave = new Crave(this.arrayCandyImages[this.randomCrave]);
-    this.candyCreationGap -= 50; // cree los elementos más rápido
+    if (this.hungerBarUI.canLoseValue) // solo se ejecuta si no esta en el tiempo de reaccion para el usuario
+    {
+      let oldCrave=this.randomCrave    
+      this.randomCrave = Math.floor(Math.random() * this.arrayCandyColors.length);
+      if(this.randomCrave !==oldCrave )
+      {
+        this.hungerBarUI.valueFreeze()
+      }
+      this.crave = new Crave(this.arrayCandyImages[this.randomCrave]);
+      //this.candyCreationGap -= 50; // cree los elementos más rápido
+  
+    }
+    
+   
   };
 
   checkCrave = (candy, count) => {
@@ -138,8 +149,8 @@ class Game {
 
         if (isCrave) { // si es igual al marcado
           this.character.startEatCrave(); // empieza a comer
-
-          this.score.value += candyScore; // suma la puntuacion de cada caramelo
+          this.score.sumScore(candyScore)
+         // this.score.value += candyScore; // suma la puntuacion de cada caramelo
           if (this.hungerBarUI.value < this.maxHungryBar - candyHungryBar) {
             this.hungerBarUI.value += candyHungryBar; // solo descuenta barra hambre si deja caer el carameo del antojo
           } else {
@@ -147,10 +158,10 @@ class Game {
           }
         } else {
           this.character.startDisgusted();
-
+            
           this.hungerBarUI.value -= candyHungryBar;
         }
-      } else if (
+      } else if ( //si choca contra el suelo
         eachCandy.y >
         canvas.height - (this.character.groundPosition - this.candyCollisionGap)
       ) {
@@ -159,9 +170,16 @@ class Game {
         
         if (this.checkCrave(eachCandy, count)) {
           // si se ha caido un caramelo bueno vuelve a hacer random
-          this.hungerBarUI.value -= candyHungryBar;
-          this.character.loseCrave()
-          this.chooseRandomCrave();
+          this.hungerBarUI.restValue(candyHungryBar)// checkea si le puede restar valor
+          //this.hungerBarUI.value -= candyHungryBar;
+          if(this.hungerBarUI.canLoseValue)
+          {
+            this.character.loseCrave()
+            this.chooseRandomCrave();
+          }
+          
+          
+         
         }
         this.candyArr.splice(count, 1);
       }
@@ -185,10 +203,11 @@ class Game {
           ) {
            if(!eachBug.hasDamaged && !this.character.isDamaged) // para que solo reste una vez cuando colisiona
            {
-            this.score.value -= eachBug.damage;
+            this.score.restScore(eachBug.damage)
+           // this.score.value -= eachBug.damage;
             this.score.value=this.checkScoreZero(this.score.value)
             eachBug.doDamage()
-            this.character.damageScore()
+            this.character.restScore()
            }
             
           }

@@ -49,7 +49,10 @@ const startGame = () => {
   //2. Crear los elementos del juego
 
   //3. Iniciar el bucle del juego (recursion)
-  gameObj.gameLoop();
+ 
+    gameObj.gameLoop();
+ 
+  
 };
 
 //comprueba hacia donde esta moviendose segun tecla presionada y pone la variable a true

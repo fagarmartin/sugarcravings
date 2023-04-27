@@ -68,6 +68,7 @@ class Character {
     this.audioLoseCrave=new Audio()
     this.audioLoseCrave.src="sounds/losecandy.mp3"
 
+    this.canLoseScore=true // se pondra a false X tiempo cuando se cambie el caramelo bueno, para no perder vida en ese tiempo
     
   }
 
@@ -136,7 +137,7 @@ loseCrave=()=>{
 
   setTimeout(() => {
     this.hasLostCrave=false
-  }, 200);
+  }, 100);
 
 
 }
