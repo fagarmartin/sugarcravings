@@ -35,11 +35,13 @@ img.animate-logo {
     transform: translateY(-20px);
   }
 }
+
 .container{
   display:flex;
   justify-content: center;
- align-items: center;
+  margin-top:20px;
 }
+
 #pause-msg {
   display: none;
   font-family: "Roboto", sans-serif;
@@ -49,11 +51,13 @@ img.animate-logo {
   padding-top: 10px;
   color: darkcyan;
 }
+
 #messages{
   display:flex;
   flex-direction: column;
   text-align: center;
 }
+
 #in-game-msg{
   color:darkred;
   font-family: "Roboto", sans-serif;
@@ -61,9 +65,9 @@ img.animate-logo {
 }
 
 #game {
-  display: none;
-  
+  display: none;  
 }
+
 #audio-intro {
   display: none;
 }

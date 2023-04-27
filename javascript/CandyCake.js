@@ -18,10 +18,10 @@ class CandyCake {
       this.y = 0-this.h;
       this.img = new Image();
       this.img.src = "images/sugar/cake.png";
-      this.speedFall = 4.4+speedLevel;
+      this.speedFall = 5+speedLevel;
       this.score=50
       this.hungryBar=10
-      this.restHungryBar=20
+      this.restHungryBar=30
       
     }
   

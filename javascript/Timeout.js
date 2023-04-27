@@ -7,7 +7,7 @@ class Timeout {
     run() {
         
         this.startedTime = new Date().getTime(); // guarda el tiempo en el que empieza a contar
-        console.log("ENTRA RUN ",this.time )
+      
         if (this.time > 0) {
             this.timeout = setTimeout(this.callback, this.time); // si el tiempo indicado es mayor que cero
         }

@@ -20,9 +20,9 @@ class CandyYellow {
     this.img = new Image();
     this.img.src = "images/sugar/yellowcandy.png";
     this.speedFall = 3.5+speedLevel;
-    this.score=15
-    this.hungryBar=5
-    this.restHungryBar=20
+    this.score=10
+    this.hungryBar=3
+    this.restHungryBar=25
     
   }
 

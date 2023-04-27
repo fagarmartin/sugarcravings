@@ -31,6 +31,7 @@ let moveRightKey = "KeyD";
 
 const restartGame = () => {
   gameOverScreenDOM.style.display = "none";
+  msgInGame.innerText=""
   startGame();
 };
 

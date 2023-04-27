@@ -29,6 +29,7 @@ class HungerBar {
     ctx.fillRect(this.x, this.y, valorProp, this.h);
   };
   valueFreeze = () => {
+   
     // sera llamado cuando cambie el caramelo bueno para dejar un margen de reaccion al usuario
     this.canLoseValue = false;
    

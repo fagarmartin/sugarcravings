@@ -7,7 +7,7 @@ class Character {
     this.y = canvas.height - this.groundPosition; // se pondrá encima del terreno
     this.img = new Image();
     this.img.src = "images/character/char-idle.png";
-    this.speed = 9.4;
+    this.speed = 9;
     this.isMovingRight = false;
     this.isMovingLeft = false;       
 
@@ -58,15 +58,19 @@ class Character {
     /* audios*/
     this.audioEating = new Audio();
     this.audioEating.src = "sounds/eating.mp3";
+    this.audioEating.volume=0.05
 
     this.audioDisgust = new Audio();
     this.audioDisgust.src = "sounds/disgusted.mp3";
+    this.audioDisgust.volume=0.05
 
     this.audioDamage = new Audio();
     this.audioDamage.src = "sounds/damage.mp3";
+    this.audioDamage.volume=0.05
 
     this.audioLoseCrave=new Audio()
     this.audioLoseCrave.src="sounds/losecandy.mp3"
+    this.audioLoseCrave.volume=0.05
 
    /* timeouts */
 
@@ -164,7 +168,7 @@ loseCrave=()=>{
 
   playAudio = (audio) => {
     if (!btnSoundGame.classList.contains("off")) {
-      audio.volume=0.4
+      //audio.volume=0.05
       audio.play(); // solo llama a la funcion si true
     }
   };
@@ -176,7 +180,7 @@ loseCrave=()=>{
     this.img = this.damagedDisgustedImg;
     this.timeOutDamaged=new Timeout(()=>{
       this.isDamaged = false;
-    },1000)
+    },2000)
     /*setTimeout(() => {
       this.isDamaged = false;
     }, 1500);*/

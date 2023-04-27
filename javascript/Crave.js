@@ -34,7 +34,7 @@ class Crave {
     );
   };
   timedMessage=(msgDom,msg,time)=>{
-    console.log("TIMED MESSAGE",msg)
+    
     msgDom.innerText=msg
     this.timeOutMsg=new Timeout(()=>{
       msgDom.innerText=""

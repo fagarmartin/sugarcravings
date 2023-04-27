@@ -1,5 +1,5 @@
 class BlackBug {
-  constructor(isMovingRight) {
+  constructor(isMovingRight,speedSum) {
     this.isMovingRight = isMovingRight;
     this.w = 40;
     this.h = 40;
@@ -18,7 +18,7 @@ class BlackBug {
     this.speedFall = 2;
     this.isJumping = true;
     this.isFalling = false;
-    this.speedHorizontal = 2;
+    this.speedHorizontal = 3+speedSum;
     this.canGo = false;
     this.countMove = 0;
     this.maxCountMove = 1;
@@ -31,6 +31,7 @@ class BlackBug {
 
     this.jumpSound = new Audio();
     this.jumpSound.src = "sounds/jumpingbug.mp3";
+    this.jumpSound.volume=0.05
   }
 
   draw = () => {

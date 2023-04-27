@@ -16,13 +16,15 @@ class Game {
     this.randomCrave = 0; // se usara para ver si es de la clase de esta posicion en arrayCandyColors
     this.arrayLevels = [0, 250, 600, 900, 1200];
     this.arrayIsLevel = [false, false, false, false, false];
+    this.sumaVelocidadLevel=[0,0.5,1,2,3.5]
+    this.restBarLevel=[0,5,10,20,50]
     this.maxLevel = this.arrayLevels.length - 1;
     this.currentLevel = 0; // servira para saber en que nivel esta y de multiplicador para subir velocidad por nivel
     this.maxHungryBar = 100; // porcentaje maximo
     this.randomLimit = canvas.width - this.candyCreationGap;
     this.isInmortal = false;
-    this.maxRandomBlackBug = 50000;
-    this.minRandomBlackBug = 25000;
+    this.maxRandomBlackBug = 10000;
+    this.minRandomBlackBug = 5000;
     this.firstTime = true;
     //this.oldCrave=-1; // para compararlo con el nuevo valor
 
@@ -76,14 +78,15 @@ class Game {
   };
   // para que al pausar no se sigan ejecutando los time outs
   pausarTimeOuts = () => {
-    this.checkUndefinedAndPause(this.character.timeOutDamaged);
-    this.checkUndefinedAndPause(this.character.timeOutEat);
-    this.checkUndefinedAndPause(this.character.timeOutLoseCrave);
-    this.checkUndefinedAndPause(this.character.timeOutDisgusted);
-    this.checkUndefinedAndPause(this.character.timeOutDamaged);
-    this.checkUndefinedAndPause(this.crave.timeOutColorChange);
-    this.blackBugs.forEach(()=>{
-      this.checkUndefinedAndPause(this.eachBug.timeOutDamaged);
+    this.checkUndefinedAndPause(this.character.timeOutDamaged);//
+    this.checkUndefinedAndPause(this.character.timeOutEat);//
+    this.checkUndefinedAndPause(this.character.timeOutLoseCrave);//
+    this.checkUndefinedAndPause(this.character.timeOutDisgusted);//
+    this.checkUndefinedAndPause(this.crave.timeOutColorChange);    //
+    this.checkUndefinedAndPause(this.timeOutBlackBug)//
+    this.checkUndefinedAndPause(this.timeOutMsg)//
+    this.blackBugs.forEach((eachBug)=>{
+      this.checkUndefinedAndPause(eachBug.timeOutDamaged);//
     })
   };
   reanudarTimeOuts = () => {
@@ -92,8 +95,10 @@ class Game {
     this.checkUndefinedAndRun(this.character.timeOutLoseCrave);
     this.checkUndefinedAndRun(this.character.timeOutDisgusted);  
     this.checkUndefinedAndRun(this.crave.timeOutColorChange);
-    this.blackBugs.forEach(()=>{
-      this.checkUndefinedAndRun(this.eachBug.timeOutDamaged);
+    this.checkUndefinedAndRun(this.timeOutMsg)
+    this.checkUndefinedAndRun(this.timeOutBlackBug)
+    this.blackBugs.forEach((eachBug)=>{
+      this.checkUndefinedAndRun(eachBug.timeOutDamaged);
     })
   };
 
@@ -110,6 +115,7 @@ class Game {
   pausarAudio = () => {
     audioIntro.pause(); // para audio de intro
     audioIntro.currentTime = 0;
+    audioIntro.isLoop=true
   };
 
   createCandy = (tipoCandy) => {
@@ -131,16 +137,16 @@ class Game {
 
     let newCandy;
     if (this.arrayCandyColors[randomCandy] === "CandyRed") {
-      newCandy = new CandyRed(posX, this.currentLevel * 0.1);
+      newCandy = new CandyRed(posX, this.sumaVelocidadLevel[this.currentLevel]);
       return newCandy;
     } else if (this.arrayCandyColors[randomCandy] === "CandyYellow") {
-      newCandy = new CandyYellow(posX, this.currentLevel * 0.1); //aumenta la velocidad con current level
+      newCandy = new CandyYellow(posX, this.sumaVelocidadLevel[this.currentLevel]); //aumenta la velocidad con current level
       return newCandy;
     } else if (this.arrayCandyColors[randomCandy] === "CandyCookie") {
-      newCandy = new CandyCookie(posX, this.currentLevel * 0.1);
+      newCandy = new CandyCookie(posX, this.sumaVelocidadLevel[this.currentLevel]);
       return newCandy;
     } else if (this.arrayCandyColors[randomCandy] === "CandyCake") {
-      newCandy = new CandyCake(posX, this.currentLevel * 0.1);
+      newCandy = new CandyCake(posX, this.sumaVelocidadLevel[this.currentLevel]);
       return newCandy;
     }
   };
@@ -173,6 +179,7 @@ class Game {
 
   checkCollisionCandy = () => {
     this.candyArr.forEach((eachCandy, count) => {
+      
       if (
         //colisiona con personaje
         eachCandy.x < this.character.x + this.character.w &&
@@ -181,9 +188,10 @@ class Game {
         eachCandy.h + eachCandy.y > this.character.y + this.candyCollisionGap //para que no se elimine justo cuando toca al personaje
       ) {
         let isCrave = this.checkCrave(eachCandy, count); // checkea si es el caramelo correcto y actualiza score
-        let candyHungryBar = this.candyArr[count].restHungryBar;
-        let candyScore = this.candyArr[count].score;
-
+        let candyRestHungryBar = eachCandy.restHungryBar;
+        let candyScore = eachCandy.score;
+        let candyHungryBar=eachCandy.hungryBar;
+        let restLevel=this.restBarLevel[this.currentLevel]
         this.candyArr.splice(count, 1);
 
         if (isCrave) {
@@ -192,14 +200,17 @@ class Game {
           this.score.sumScore(candyScore);
           // this.score.value += candyScore; // suma la puntuacion de cada caramelo
           if (this.hungerBarUI.value < this.maxHungryBar - candyHungryBar) {
+            
             this.hungerBarUI.value += candyHungryBar; // solo descuenta barra hambre si deja caer el caramelo del antojo
+            console.log(this.hungerBarUI.value,candyHungryBar)
           } else {
             this.hungerBarUI.value = this.maxHungryBar;
           }
         } else {
           this.character.startDisgusted();
           if (this.hungerBarUI.canLoseValue) {
-            this.hungerBarUI.value -= candyHungryBar;
+            
+            this.hungerBarUI.value = this.hungerBarUI.value -(candyRestHungryBar+restLevel);
           }
 
          
@@ -209,11 +220,11 @@ class Game {
         eachCandy.y >
         canvas.height - (this.character.groundPosition - this.candyCollisionGap)
       ) {
-        let candyHungryBar = this.candyArr[count].hungryBar;
+        let restLevel=this.restBarLevel[this.currentLevel]
 
         if (this.checkCrave(eachCandy, count)) {
           // si se ha caido un caramelo bueno vuelve a hacer random
-          this.hungerBarUI.restValue(candyHungryBar); // checkea si le puede restar valor
+          this.hungerBarUI.restValue(eachCandy.restHungryBar+restLevel); // checkea si le puede restar valor
           //this.hungerBarUI.value -= candyHungryBar;
           if (this.hungerBarUI.canLoseValue) {
             this.character.loseCrave();
@@ -266,8 +277,8 @@ class Game {
   createBlackBug = () => {
     let movingDir = Math.floor(Math.random() * 2);
     //console.log("MOVINGDIR",movingDir)
-
-    this.blackBugs.push(new BlackBug(movingDir));
+   
+    this.blackBugs.push(new BlackBug(movingDir,this.sumaVelocidadLevel[this.currentLevel]));
     this.crave.timedMessage(
       msgInGame,
       "Avoid the bug or it will take your points!",
@@ -283,17 +294,22 @@ class Game {
     ) {
       // para que solo entre una vez
       //this.timeOutBlackBug = new Timeout(this.createBlackBug, 100);
-      this.timeOutBlackBug = new Timeout(
-        this.createBlackBug,
-        Math.random() * (this.maxRandomBlackBug - this.minRandomBlackBug) +
-          this.minRandomBlackBug
-      );
+      let randomTime=Math.random() * (this.maxRandomBlackBug - this.minRandomBlackBug) +  this.minRandomBlackBug
+      //console.log(randomTime,"RANDOMTIME")
+      this.timeOutBlackBug = new Timeout(this.createBlackBug,randomTime);
       //setTimeout(this.createBlackBug,Math.random() * (this.maxRandomBlackBug - this.minRandomBlackBug) + this.minRandomBlackBug);
       //setTimeout(this.createBlackBug,1000);
       // console.log("SUBE DE NIVEL", this.currentLevel);
       this.arrayIsLevel[this.currentLevel] = true;
       this.currentLevel++;
-      this.respawnGapY -= 35;
+      if(this.respawnGapY<=0)
+      {
+        this.respawnGapY=5
+      }
+      else{
+        this.respawnGapY -= 35;
+      }
+      
     }
   };
 
