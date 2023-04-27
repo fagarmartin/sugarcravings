@@ -9,13 +9,7 @@ class Character {
     this.img.src = "images/character/char-idle.png";
     this.speed = 9;
     this.isMovingRight = false;
-    this.isMovingLeft = false;
-    //this.walkingRightSpriteFolder="images/character/walking-right/"
-    this.maxSpritesNum = 15;
-    this.countSprite = 1;
-    this.animating;
-    this.now;
-    this.then;
+    this.isMovingLeft = false;       
 
     this.isEating = false;
 
@@ -124,14 +118,15 @@ class Character {
   };
   playAudio = (audio) => {
     if (!btnSoundGame.classList.contains("off")) {
+      audio.volume=0.4
       audio.play(); // solo llama a la funcion si true
     }
   };
   damageScore = () => {
     this.isDamaged = true;
-    console.log("ENTRA AUDIO DAÑO");
+   
     //this.audioDamage.volume=0.8
-    this.audioDamage.play();
+    this.playAudio(this.audioDamage)
     this.img = this.damagedDisgustedImg;
     setTimeout(() => {
       this.isDamaged = false;

@@ -21,7 +21,7 @@ class CandyCake {
       this.speedFall = 4.4+speedLevel;
       this.score=50
       this.hungryBar=10
-      this.restHungryBar=15
+      this.restHungryBar=20
       
     }
   

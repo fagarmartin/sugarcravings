@@ -31,8 +31,10 @@ const restartGame = () => {
 };
 
 const startAudio = () => {
-  audioIntro.volume = 0.3;
-  audioIntro.play();
+  if (!btnSoundGame.classList.contains("off")) {
+    audioIntro.volume = 0.1;
+    audioIntro.play();
+  }
 };
 const startGame = () => {
   startAudio();
@@ -67,7 +69,7 @@ const pause = () => {
     // solo si la musica no esta pausada
     gameObj.isGameOn = true;
     if (!btnSoundGame.classList.contains("off")) {
-      audioIntro.play();
+      startAudio()
     }
 
     msgPause.style.display = "none";
@@ -91,7 +93,7 @@ btnSoundGame.addEventListener("click", () => {
     gameObj.isGameOn &&
     !btnSoundGame.classList.contains("off")
   ) {
-    audioIntro.play();
+    startAudio()
   } else {
     audioIntro.pause();
   }

@@ -23,7 +23,7 @@ class Game {
     this.isInmortal = false;
     this.maxRandomBlackBug=50000
     this.minRandomBlackBug=25000
-    this.damage=45 // daño que hace el bicho al chocar con el personaje
+    //this.damage=45 // daño que hace el bicho al chocar con el personaje
     this.arrayCandyColors = [
       "CandyRed",
       "CandyYellow",
@@ -181,9 +181,9 @@ class Game {
             eachBug.x + eachBug.w > this.character.x &&
             eachBug.y < this.character.y + this.character.h &&
             eachBug.h + eachBug.y >
-              this.character.y + this.candyCollisionGap //para que no se elimine justo cuando toca al personaje
+              this.character.y + this.candyCollisionGap 
           ) {
-           if(eachBug.canDamage)
+           if(!eachBug.hasDamaged && !this.character.isDamaged) // para que solo reste una vez cuando colisiona
            {
             this.score.value -= eachBug.damage;
             this.score.value=this.checkScoreZero(this.score.value)

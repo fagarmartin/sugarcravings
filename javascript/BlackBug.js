@@ -25,7 +25,13 @@ class BlackBug {
     this.maxCountMove=1
     this.canDamage=true
     this.damage=100 // resta al score si choca con el personaje
-    
+    this.hasDamaged=false
+    this.canPlayJumpSound=true
+
+    /* sounds */
+
+    this.jumpSound=new Audio()
+    this.jumpSound.src="sounds/jumpingbug.mp3"
   }
 
   draw = () => {
@@ -45,6 +51,7 @@ class BlackBug {
       this.isJumping = false;
       this.isFalling = true;
     } else if (this.y >= canvas.height - this.groundPosition + this.h / 2) {
+      this.playAudio(this.jumpSound)
       this.isJumping = true;
       this.isFalling = false;
     }
@@ -61,6 +68,7 @@ class BlackBug {
       }
       if(this.x>=canvas.width-this.w && this.isMovingRight)
       {
+       // this.playAudio(this.jumpSound)
         this.isMovingRight=false
         this.countMove++
       }
@@ -76,20 +84,26 @@ class BlackBug {
       }
       if(this.x<=0 && !this.isMovingRight)
       {
+        //this.playAudio(this.jumpSound)
         this.isMovingRight=true
         this.countMove++
       }
     }
   
   };
-
+  playAudio = (audio) => {
+    if (!btnSoundGame.classList.contains("off")) {
+      audio.volume=0.1
+      audio.play(); // solo llama a la funcion si true
+    }
+  };
   doDamage=()=>{
     
     this.canDamage=false
     setTimeout(()=>{
       this.canDamage=true
-      console.log("DO DAMAGE TRUE")
-    },3000)
+      this.hasDamaged=false      
+    },4000)
 
   }
 }
