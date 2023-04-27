@@ -14,10 +14,10 @@ class Game {
     this.isGameOn = true;
     this.crave; // marcador de caramelo bueno
     this.randomCrave = 0; // se usara para ver si es de la clase de esta posicion en arrayCandyColors
-    this.arrayLevels = [0, 250, 600, 900, 1200];
-    this.arrayIsLevel = [false, false, false, false, false];
-    this.sumaVelocidadLevel=[0,0.5,1,2,3.5]
-    this.restBarLevel=[0,5,10,20,50]
+    this.arrayLevels = [0, 250, 600, 900, 1200,1600,1950,2500,3000];
+    this.arrayIsLevel = [false, false, false, false, false, false, false, false, false];
+    this.sumaVelocidadLevel=[0,0,0.25,0.5,1,1.5,1.6,1.75,2]
+    this.restBarLevel=[0,5,10,20,50,60,70,75]
     this.maxLevel = this.arrayLevels.length - 1;
     this.currentLevel = 0; // servira para saber en que nivel esta y de multiplicador para subir velocidad por nivel
     this.maxHungryBar = 100; // porcentaje maximo
@@ -307,7 +307,7 @@ class Game {
         this.respawnGapY=5
       }
       else{
-        this.respawnGapY -= 35;
+        this.respawnGapY -= 10;
       }
       
     }
