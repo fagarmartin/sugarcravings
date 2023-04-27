@@ -31,7 +31,7 @@ class BlackBug {
 
     this.jumpSound = new Audio();
     this.jumpSound.src = "sounds/jumpingbug.mp3";
-    this.jumpSound.volume=0.03
+    this.jumpSound.volume=0.01
   }
 
   draw = () => {
