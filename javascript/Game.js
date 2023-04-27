@@ -136,7 +136,7 @@ class Game {
 
         this.candyArr.splice(count, 1);
 
-        if (isCrave) {
+        if (isCrave) { // si es igual al marcado
           this.character.startEatCrave(); // empieza a comer
 
           this.score.value += candyScore; // suma la puntuacion de cada caramelo
@@ -160,7 +160,7 @@ class Game {
         if (this.checkCrave(eachCandy, count)) {
           // si se ha caido un caramelo bueno vuelve a hacer random
           this.hungerBarUI.value -= candyHungryBar;
-         
+          this.character.loseCrave()
           this.chooseRandomCrave();
         }
         this.candyArr.splice(count, 1);
@@ -227,8 +227,8 @@ class Game {
     ) {
       // para que solo entre una vez
     
-      //setTimeout(this.createBlackBug,Math.random() * (this.maxRandomBlackBug - this.minRandomBlackBug) + this.minRandomBlackBug);
-     setTimeout(this.createBlackBug,1000);
+      setTimeout(this.createBlackBug,Math.random() * (this.maxRandomBlackBug - this.minRandomBlackBug) + this.minRandomBlackBug);
+      //setTimeout(this.createBlackBug,1000);
       // console.log("SUBE DE NIVEL", this.currentLevel);
       this.arrayIsLevel[this.currentLevel] = true;
       this.currentLevel++;

@@ -9,6 +9,11 @@
     justify-content: space-between;   
     
 }
+p{
+  margin: 0px;
+  padding:5px;
+  text-align: center;
+}
 /* animar logo arriba y abajo*/
 
 img.animate-logo{
@@ -25,6 +30,7 @@ img.animate-logo{
 }
 
 #pause-msg{
+
     display: none;
     font-family: 'Roboto', sans-serif;
     font-size: 25px;
@@ -34,6 +40,7 @@ img.animate-logo{
     color:darkcyan;
     
 }
+
 #game{
     display: none;
 }
@@ -71,11 +78,12 @@ img.animate-logo{
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin: 15px;
+    margin: 5px;
     
 }
 #moveleft,moveright{
-    padding:0 20px ;
+
+    padding:0 10px ;
 }
 #movements img{
     margin-right: 15px;
@@ -97,7 +105,7 @@ img.animate-logo{
 #omnom {
   height: 213px;
   width: 300px;
-  margin: 25px;
+  margin: 15px;
 }
 #how-to-play{
     font-family: 'Roboto', sans-serif;
@@ -111,11 +119,11 @@ img.animate-logo{
     color:cornflowerblue;
     font-weight: bold;
 }
-#ins-second img{
+#avoid-ins img{
   width: 30px;
   height: 30px;
 }
-#ins-second{
+#avoid-ins{
   text-align: center;
   color:darkred;
 }

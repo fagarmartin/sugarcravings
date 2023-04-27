@@ -49,6 +49,12 @@ class Character {
     this.damagedEatingImg = new Image();
     this.damagedEatingImg.src = "images/character/damaged/char-eat-crave.png";
 
+    this.lostCraveImg=new Image()
+    this.lostCraveImg.src="images/character/char-lost-crave.png"
+
+    this.damagedLostCraveImg=new Image()
+    this.damagedLostCraveImg.src="images/character/damaged/char-lost-crave.png"
+
     /* audios*/
     this.audioEating = new Audio();
     this.audioEating.src = "sounds/eating.mp3";
@@ -61,6 +67,8 @@ class Character {
 
     this.audioLoseCrave=new Audio()
     this.audioLoseCrave.src="sounds/losecandy.mp3"
+
+    
   }
 
   draw = () => {
@@ -69,7 +77,7 @@ class Character {
 
   move = () => {
     //
-    if(!this.isDamaged)
+    if(!this.isDamaged && !this.hasLostCrave)
     {
 
       if (this.isMovingRight && this.x < canvas.width - this.w) {
@@ -103,9 +111,7 @@ class Character {
       this.img = this.damagedIdleImg;
     }
   };
-stopLoseCrave=()=>{
 
-}
   startEatCrave = () => {
     this.playAudio(this.audioEating);
 
@@ -120,7 +126,17 @@ stopLoseCrave=()=>{
   };
 
 loseCrave=()=>{
+  this.hasLostCrave=true
   this.playAudio(this.audioLoseCrave)
+  if (!this.isDamaged) {
+    this.img = this.lostCraveImg;
+  } else {
+    this.img = this.damagedLostCraveImg;
+  }
+
+  setTimeout(() => {
+    this.hasLostCrave=false
+  }, 200);
 
 
 }
