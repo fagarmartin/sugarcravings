@@ -12,7 +12,7 @@ class Game {
     this.candyCollisionGap = 30;
     this.candyCreationGap = 80;
     this.isGameOn = true;
-    this.crave;
+    this.crave; // marcador de caramelo bueno
     this.randomCrave = 0; // se usara para ver si es de la clase de esta posicion en arrayCandyColors
     this.arrayLevels = [0, 125, 400, 700, 900];
     this.arrayIsLevel = [false, false, false, false, false];
@@ -23,6 +23,7 @@ class Game {
     this.isInmortal = false;
     this.maxRandomBlackBug=50000
     this.minRandomBlackBug=25000
+    this.firstTime=true
     //this.damage=45 // daño que hace el bicho al chocar con el personaje
     this.arrayCandyColors = [
       "CandyRed",
@@ -111,11 +112,14 @@ class Game {
     {
       let oldCrave=this.randomCrave    
       this.randomCrave = Math.floor(Math.random() * this.arrayCandyColors.length);
-      if(this.randomCrave !==oldCrave )
+      
+      this.crave = new Crave(this.arrayCandyImages[this.randomCrave]);
+      if(this.randomCrave !==oldCrave && !this.firstTime )
       {
         this.hungerBarUI.valueFreeze()
+        
+        this.crave.changeColorFrame()
       }
-      this.crave = new Crave(this.arrayCandyImages[this.randomCrave]);
       //this.candyCreationGap -= 50; // cree los elementos más rápido
   
     }
@@ -246,8 +250,8 @@ class Game {
     ) {
       // para que solo entre una vez
     
-      //setTimeout(this.createBlackBug,Math.random() * (this.maxRandomBlackBug - this.minRandomBlackBug) + this.minRandomBlackBug);
-      setTimeout(this.createBlackBug,1000);
+      setTimeout(this.createBlackBug,Math.random() * (this.maxRandomBlackBug - this.minRandomBlackBug) + this.minRandomBlackBug);
+      //setTimeout(this.createBlackBug,1000);
       // console.log("SUBE DE NIVEL", this.currentLevel);
       this.arrayIsLevel[this.currentLevel] = true;
       this.currentLevel++;
@@ -256,6 +260,7 @@ class Game {
   };
   gameLoop = () => {
     //1. Limpieza del canvas
+    
     this.clearCanvas();
     //2. Acciones y movimiento de los elementos
 
@@ -287,7 +292,10 @@ class Game {
     this.score.draw();
     this.hungerBarUI.draw();
     this.changeDifficulty();
-
+    if(this.firstTime) //ejecutar ciertas funciones despues de la primera ejecucion
+    {
+      this.firstTime=false
+    }
     //4. Recursion (requestAnimationFrame)
     if (this.isGameOn) {
       requestAnimationFrame(this.gameLoop);

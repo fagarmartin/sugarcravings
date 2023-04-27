@@ -139,7 +139,6 @@ loseCrave=()=>{
     this.hasLostCrave=false
   }, 100);
 
-
 }
 
   startDisgusted = () => {
@@ -167,6 +166,6 @@ loseCrave=()=>{
     this.img = this.damagedDisgustedImg;
     setTimeout(() => {
       this.isDamaged = false;
-    }, 2000);
+    }, 1500);
   };
 }
