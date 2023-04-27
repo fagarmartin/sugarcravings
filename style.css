@@ -35,7 +35,11 @@ img.animate-logo {
     transform: translateY(-20px);
   }
 }
-
+.container{
+  display:flex;
+  justify-content: center;
+ align-items: center;
+}
 #pause-msg {
   display: none;
   font-family: "Roboto", sans-serif;
@@ -58,6 +62,7 @@ img.animate-logo {
 
 #game {
   display: none;
+  
 }
 #audio-intro {
   display: none;
