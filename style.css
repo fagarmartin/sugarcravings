@@ -1,69 +1,80 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;1,500&family=Rubik+Pixels&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;1,500&family=Sigmar&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;1,500&family=Rubik+Pixels&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;1,500&family=Sigmar&display=swap");
 
 /* CANVAS */
-#menu-game{
-    height: 50px;
-    width: 850px;
-    display: flex;
-    justify-content: space-between;   
-    
+#menu-game {
+  height: 50px;
+  width: 850px;
+  display: flex;
+  justify-content: space-between;
 }
-p{
+p {
   margin: 0px;
-  padding:5px;
+  padding: 5px;
   text-align: center;
 }
 /* animar logo arriba y abajo*/
 
-img.animate-logo{
-    -webkit-animation: animate-logo  2s infinite  alternate;
-    animation: animate-logo  2s infinite  alternate;
+img.animate-logo {
+  -webkit-animation: animate-logo 2s infinite alternate;
+  animation: animate-logo 2s infinite alternate;
 }
 @-webkit-keyframes animate-logo {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-20px); }
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-20px);
+  }
 }
 @keyframes animate-logo {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-20px); }
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-20px);
+  }
 }
 
-#pause-msg{
-
-    display: none;
-    font-family: 'Roboto', sans-serif;
-    font-size: 25px;
-    text-align: center;
-    width:500px;
-    padding-top: 10px;
-    color:darkcyan;
-    
+#pause-msg {
+  display: none;
+  font-family: "Roboto", sans-serif;
+  font-size: 25px;
+  text-align: center;
+  width: 500px;
+  padding-top: 10px;
+  color: darkcyan;
+}
+#messages{
+  display:flex;
+  flex-direction: column;
+  text-align: center;
+}
+#in-game-msg{
+  color:darkred;
+  font-family: "Roboto", sans-serif;
+  font-size: 25px;
 }
 
-#game{
-    display: none;
+#game {
+  display: none;
 }
-#audio-intro{
+#audio-intro {
   display: none;
 }
 #my-canvas {
   background-color: lightgray;
-  
 }
 
-.btn-sound
-{
-  width:75px;
+.btn-sound {
+  width: 75px;
   height: 75px;
-  background: url("images/screens/game/soundon.png") no-repeat; 
-  cursor:pointer;
-  
+  background: url("images/screens/game/soundon.png") no-repeat;
+  cursor: pointer;
 }
 
-
-.off{
-  background: url("images/screens/game/soundoff.png") no-repeat; 
+.off {
+  background: url("images/screens/game/soundoff.png") no-repeat;
 }
 #splash-screen {
   width: 900px;
@@ -73,30 +84,26 @@ img.animate-logo{
   align-items: center;
   background-color: #c2e5f1;
 }
-#movements{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin: 5px;
-    
+#movements {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
 }
-#moveleft,moveright{
-
-    padding:0 10px ;
+#moveleft,
+moveright {
+  padding: 0 10px;
 }
-#movements img{
-    margin-right: 15px;
-    
+#movements img {
+  margin-right: 15px;
 }
-#key{
-    width:50px;
-    height:50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-   /* background: url("../images/screens/splashscreen/key.png") no-repeat;*/
+#key {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 #logo {
   width: 500px;
@@ -107,25 +114,25 @@ img.animate-logo{
   width: 300px;
   margin: 15px;
 }
-#how-to-play{
-    font-family: 'Roboto', sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 15px ;
-    padding: 5px 5px 10px 5px;
-    margin-bottom: 15px;
-    color:cornflowerblue;
-    font-weight: bold;
+#how-to-play {
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 15px;
+  padding: 5px 5px 10px 5px;
+  margin-bottom: 15px;
+  color: cornflowerblue;
+  font-weight: bold;
 }
-#avoid-ins img{
+#avoid-ins img {
   width: 30px;
   height: 30px;
 }
-#avoid-ins{
+#avoid-ins {
   text-align: center;
-  color:darkred;
+  color: darkred;
 }
 #start-btn {
   width: 300px;
@@ -138,67 +145,61 @@ img.animate-logo{
   background: url("images/screens/splashscreen/playpressed.png") no-repeat;
   cursor: pointer;
 }
-#btn-pause{
-    width: 104px;
-    height: 50px;
-    background: url("images/screens/game/pausanormal.png") no-repeat;
-    cursor: pointer;
-    
+#btn-pause {
+  width: 104px;
+  height: 50px;
+  background: url("images/screens/game/pausanormal.png") no-repeat;
+  cursor: pointer;
 }
-#btn-pause:hover{
-    width: 104px;
-    height: 50px;
-    background: url("images/screens/game/pausapressed.png") no-repeat;
-    cursor: pointer;
-    
+#btn-pause:hover {
+  width: 104px;
+  height: 50px;
+  background: url("images/screens/game/pausapressed.png") no-repeat;
+  cursor: pointer;
 }
 /* GAME OVER SCREEN*/
-#game-over-screen{
-    display:none;
+#game-over-screen {
+  display: none;
 }
-#game-over{
-    width: 900px;
-    height: 700px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    background-color: #fcf1d5;
-    
+#game-over {
+  width: 900px;
+  height: 700px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #fcf1d5;
 }
-#game-over-logo
-{
-    width: 500px;
-    margin: 40px 0;
+#game-over-logo {
+  width: 500px;
+  margin: 40px 0;
 }
 
 #restart-btn {
-    width: 300px;
-    height: 100px;
-    background: url("images/screens/gameover/restartnormal.png") no-repeat;
-  }
-  #restart-btn:hover {
-    width: 300px;
-    height: 100px;
-    background: url("images/screens/gameover/restartpressed.png") no-repeat;
-    cursor: pointer;
-  }
+  width: 300px;
+  height: 100px;
+  background: url("images/screens/gameover/restartnormal.png") no-repeat;
+}
+#restart-btn:hover {
+  width: 300px;
+  height: 100px;
+  background: url("images/screens/gameover/restartpressed.png") no-repeat;
+  cursor: pointer;
+}
 
-  #omnom-gameover{
-    margin: 20px 0;
-  }
-  #score{
-    font-family: 'Sigmar', cursive;
-    font-size: 30px;  
-    color:peru;    
-    
-  }
-  #your-score{
-    padding-right: 15px;
-  }
-  #improved{
-    font-family: 'Sigmar', cursive;
-    font-size: 20px;   
-    color:goldenrod;
-    display:none;
-   
-  }
+#omnom-gameover {
+  margin: 20px 0;
+}
+#score {
+  font-family: "Sigmar", cursive;
+  font-size: 30px;
+  color: peru;
+}
+#your-score {
+  padding-right: 15px;
+}
+#improved {
+  font-family: "Sigmar", cursive;
+  font-size: 20px;
+  color: goldenrod;
+  display: none;
+}

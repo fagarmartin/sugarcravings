@@ -32,10 +32,6 @@ class Score {
   };
 
   restScore = (candyScore) => {
-  
-      this.value -= candyScore;
-    
+    this.value -= candyScore;
   };
-
- 
 }

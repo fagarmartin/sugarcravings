@@ -10,10 +10,14 @@ const btnRestartGame = document.querySelector("#restart-btn");
 const btnPauseGame = document.querySelector("#btn-pause");
 const btnSoundGame = document.querySelector(".btn-sound");
 
+const msgInGame=document.querySelector("#in-game-msg")
+
 const msgPause = document.querySelector("#pause-msg");
 
 const audioIntro = new Audio();
 audioIntro.src = "sounds/intro.mp3";
+
+
 
 /*para actualizar score*/
 
@@ -67,6 +71,7 @@ const pause = () => {
   if (gameObj.isGameOn) {
     msgPause.style.display = "block";
     gameObj.isGameOn = false;
+    gameObj.pausarTimeOuts()
     audioIntro.pause();
   } else {
     // solo si la musica no esta pausada
@@ -74,7 +79,7 @@ const pause = () => {
     if (!btnSoundGame.classList.contains("off")) {
       startAudio()
     }
-
+    
     msgPause.style.display = "none";
     gameObj.gameLoop();
   }

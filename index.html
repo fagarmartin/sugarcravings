@@ -19,14 +19,17 @@
             </canvas>
             <div id="menu-game">
                 <div id="btn-pause"></div>
-               
-                <div id="pause-msg">The game is paused!</div>
+                <div id="messages">
+                    <div id="in-game-msg"></div>
+                    <div id="pause-msg">The game is paused!</div>
+                </div>
+
                 <div class="btn-sound"></div>
             </div>
         </div>
         <div id="splash-screen">
-           
-            </audio>
+
+
             <img id="logo" class="animate-logo" src="images/screens/splashscreen/logo.png">
 
             <img id="omnom" src="images/screens/splashscreen/omnomlogo.png">
@@ -35,8 +38,12 @@
                     <div id="moveleft"><img src="images/screens/splashscreen/keyA.png">Press A to move LEFT</div>
                     <div id="moveright"><img src="images/screens/splashscreen/keyD.png">Press D to move RIGHT</div>
                 </div>
-                <div id="instructions"> <div id="ins-first"><p>Catch the candy displayed at the bottom right of the screen and</p> <p >avoid the other candies.</p></div>
-                <div id="avoid-ins"><img src="images/character/blackbug.png">Dont let the bugs  catch you!</div>
+                <div id="instructions">
+                    <div id="ins-first">
+                        <p>Catch the candy displayed at the bottom right of the screen and</p>
+                        <p>avoid the other candies.</p>
+                    </div>
+                    <div id="avoid-ins"><img src="images/character/blackbug.png">Dont let the bugs catch you!</div>
 
 
                 </div>
@@ -50,7 +57,8 @@
             <div id="game-over">
                 <img id="game-over-logo" src="images/screens/gameover/gameoverlogo.png">
 
-                <div id="score">Your Score:<span id="your-score"> 0 </span>Best Mark:<span id="high-score"> 0 </span></div>
+                <div id="score">Your Score:<span id="your-score"> 0 </span>Best Mark:<span id="high-score"> 0 </span>
+                </div>
                 <div id="improved">You improved your high score! <span id="improved-score"></span></div>
                 <img id="omnom-gameover" src="images/screens/gameover/omnom.png">
                 <div id="restart-btn">
@@ -72,6 +80,7 @@
     <script src="javascript/CandyCake.js"></script>
     <script src="javascript/BlackBug.js"></script>
     <script src="javascript/Score.js"></script>
+    <script src="javascript/Timeout.js"></script>
 </body>
 
 </html>

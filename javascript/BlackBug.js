@@ -1,19 +1,16 @@
 class BlackBug {
   constructor(isMovingRight) {
-    
-    this.isMovingRight=isMovingRight;
+    this.isMovingRight = isMovingRight;
     this.w = 40;
     this.h = 40;
     this.groundPosition = 150;
 
-    if(this.isMovingRight)
-    {
-      this.x = 0-this.w;
+    if (this.isMovingRight) {
+      this.x = 0 - this.w;
+    } else {
+      this.x = canvas.width + this.w;
     }
-    else{
-      this.x = canvas.width+this.w;
-    }
-    
+
     this.y = canvas.height - this.groundPosition;
     this.img = new Image();
     this.img.src = "images/character/blackbug.png";
@@ -21,19 +18,19 @@ class BlackBug {
     this.speedFall = 2;
     this.isJumping = true;
     this.isFalling = false;
-    this.speedHorizontal=2
-    this.canGo=false
-    this.countMove=0
-    this.maxCountMove=1
-    this.canDamage=true
-    this.damage=100 // resta al score si choca con el personaje
-    this.hasDamaged=false
-    this.canPlayJumpSound=true
-
+    this.speedHorizontal = 2;
+    this.canGo = false;
+    this.countMove = 0;
+    this.maxCountMove = 1;
+    this.canDamage = true;
+    this.damage = 100; // resta al score si choca con el personaje
+    this.hasDamaged = false;
+    this.canPlayJumpSound = true;
+    this.timeOutDamage;
     /* sounds */
 
-    this.jumpSound=new Audio()
-    this.jumpSound.src="sounds/jumpingbug.mp3"
+    this.jumpSound = new Audio();
+    this.jumpSound.src = "sounds/jumpingbug.mp3";
   }
 
   draw = () => {
@@ -41,10 +38,8 @@ class BlackBug {
   };
 
   move = () => {
-   
-    if(this.countMove>this.maxCountMove)
-    {
-      this.canGo=true // puede desaparecer
+    if (this.countMove > this.maxCountMove) {
+      this.canGo = true; // puede desaparecer
     }
     if (this.y > canvas.height / 2 && !this.isFalling) {
       this.isJumping = true;
@@ -53,14 +48,13 @@ class BlackBug {
       this.isJumping = false;
       this.isFalling = true;
     } else if (this.y >= canvas.height - this.groundPosition + this.h / 2) {
-      this.playAudio(this.jumpSound)
+      this.playAudio(this.jumpSound);
       this.isJumping = true;
       this.isFalling = false;
     }
 
-    if(this.isMovingRight)
-    {
-     // console.log("ISMOVINGRIGHT")
+    if (this.isMovingRight) {
+      // console.log("ISMOVINGRIGHT")
       if (this.isJumping) {
         this.y -= this.speedJump;
         this.x += this.speedHorizontal;
@@ -68,15 +62,13 @@ class BlackBug {
         this.y += this.speedFall;
         this.x += this.speedHorizontal;
       }
-      if(this.x>=canvas.width-this.w && this.isMovingRight)
-      {
-       // this.playAudio(this.jumpSound)
-        this.isMovingRight=false
-        this.countMove++
+      if (this.x >= canvas.width - this.w && this.isMovingRight) {
+        // this.playAudio(this.jumpSound)
+        this.isMovingRight = false;
+        this.countMove++;
       }
-    }
-    else 
-    { //console.log("ISMOVINGLEFT")
+    } else {
+      //console.log("ISMOVINGLEFT")
       if (this.isJumping) {
         this.y -= this.speedJump;
         this.x -= this.speedHorizontal;
@@ -84,28 +76,30 @@ class BlackBug {
         this.y += this.speedFall;
         this.x -= this.speedHorizontal;
       }
-      if(this.x<=0 && !this.isMovingRight)
-      {
+      if (this.x <= 0 && !this.isMovingRight) {
         //this.playAudio(this.jumpSound)
-        this.isMovingRight=true
-        this.countMove++
+        this.isMovingRight = true;
+        this.countMove++;
       }
     }
-  
   };
   playAudio = (audio) => {
     if (!btnSoundGame.classList.contains("off")) {
-      audio.volume=0.1
+      audio.volume = 0.05;
       audio.play(); // solo llama a la funcion si true
     }
   };
-  doDamage=()=>{
-    
-    this.canDamage=false
-    setTimeout(()=>{
+  doDamage = () => {
+      this.canDamage = false;
+      this.timeOutDamage = new Timeout(() => {
+      this.canDamage = true;
+      this.hasDamaged = false;
+    }, 4000);
+
+    /* setTimeout(()=>{
       this.canDamage=true
       this.hasDamaged=false      
     },4000)
-
-  }
+*/
+  };
 }

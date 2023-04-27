@@ -7,7 +7,7 @@ class Character {
     this.y = canvas.height - this.groundPosition; // se pondrá encima del terreno
     this.img = new Image();
     this.img.src = "images/character/char-idle.png";
-    this.speed = 9;
+    this.speed = 9.4;
     this.isMovingRight = false;
     this.isMovingLeft = false;       
 
@@ -68,7 +68,12 @@ class Character {
     this.audioLoseCrave=new Audio()
     this.audioLoseCrave.src="sounds/losecandy.mp3"
 
-   
+   /* timeouts */
+
+   this.timeOutEat;
+   this.timeOutLoseCrave;
+   this.timeOutDisgusted;
+   this.timeOutDamaged;
     
   }
 
@@ -122,8 +127,8 @@ class Character {
     } else {
       this.img = this.damagedEatingImg;
     }
-
-    setTimeout(this.stopEat, 50);
+    this.timeOutEat=new Timeout(this.stopEat, 50)
+   // setTimeout(this.stopEat, 50);
   };
 
 loseCrave=()=>{
@@ -134,14 +139,18 @@ loseCrave=()=>{
   } else {
     this.img = this.damagedLostCraveImg;
   }
-
-  setTimeout(() => {
+  this.timeOutLoseCrave=new Timeout(()=>{
     this.hasLostCrave=false
-  }, 100);
+  }
+  ,100)
+  
+  /*setTimeout(() => {
+    
+  }, 100);*/
 
 }
 
-  startDisgusted = () => {
+  startDisgusted = () => { // cuando toma un caramelo que no es el correcto
     this.playAudio(this.audioDisgust);
     this.isEating = true;
     if (!this.isDamaged) {
@@ -149,7 +158,8 @@ loseCrave=()=>{
     } else {
       this.img = this.damagedIdleImg;
     }
-    setTimeout(this.stopEat, 65);
+    this.timeOutDisgusted=new Timeout(this.stopEat,50)
+    //setTimeout(this.stopEat, 65);
   };
 
   playAudio = (audio) => {
@@ -161,11 +171,14 @@ loseCrave=()=>{
   damageScore = () => {
     this.isDamaged = true;
    
-    //this.audioDamage.volume=0.8
+    this.audioDamage.volume=0.5
     this.playAudio(this.audioDamage)
     this.img = this.damagedDisgustedImg;
-    setTimeout(() => {
+    this.timeOutDamaged=new Timeout(()=>{
       this.isDamaged = false;
-    }, 1500);
+    },1000)
+    /*setTimeout(() => {
+      this.isDamaged = false;
+    }, 1500);*/
   };
 }
