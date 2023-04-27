@@ -17,7 +17,7 @@ class Game {
     this.arrayLevels = [0, 125, 400, 700, 900];
     this.arrayIsLevel = [false, false, false, false, false];
     this.maxLevel = this.arrayLevels.length - 1;
-    this.currentLevel = 0;
+    this.currentLevel = 0; // servira para saber en que nivel esta y de multiplicador para subir velocidad por nivel
     this.maxHungryBar = 100; // porcentaje maximo
     this.randomLimit = canvas.width - this.candyCreationGap;
     this.isInmortal = false;
@@ -96,7 +96,7 @@ class Game {
       newCandy = new CandyRed(posX, this.currentLevel * 0.1);
       return newCandy;
     } else if (this.arrayCandyColors[randomCandy] === "CandyYellow") {
-      newCandy = new CandyYellow(posX, this.currentLevel * 0.1);
+      newCandy = new CandyYellow(posX, this.currentLevel * 0.1); //aumenta la velocidad con current level
       return newCandy;
     } else if (this.arrayCandyColors[randomCandy] === "CandyCookie") {
       newCandy = new CandyCookie(posX, this.currentLevel * 0.1);
@@ -227,8 +227,8 @@ class Game {
     ) {
       // para que solo entre una vez
     
-      setTimeout(this.createBlackBug,Math.random() * (this.maxRandomBlackBug - this.minRandomBlackBug) + this.minRandomBlackBug);
-      //setTimeout(this.createBlackBug,10000);
+      //setTimeout(this.createBlackBug,Math.random() * (this.maxRandomBlackBug - this.minRandomBlackBug) + this.minRandomBlackBug);
+     setTimeout(this.createBlackBug,1000);
       // console.log("SUBE DE NIVEL", this.currentLevel);
       this.arrayIsLevel[this.currentLevel] = true;
       this.currentLevel++;

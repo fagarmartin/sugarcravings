@@ -32,7 +32,7 @@ const restartGame = () => {
 
 const startAudio = () => {
   if (!btnSoundGame.classList.contains("off")) {
-    audioIntro.volume = 0.1;
+    audioIntro.volume = 0.05;
     audioIntro.play();
   }
 };

@@ -1,9 +1,11 @@
 class BlackBug {
   constructor(isMovingRight) {
+    
     this.isMovingRight=isMovingRight;
     this.w = 40;
     this.h = 40;
     this.groundPosition = 150;
+
     if(this.isMovingRight)
     {
       this.x = 0-this.w;

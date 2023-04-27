@@ -31,6 +31,8 @@ class Character {
     //damaged walking
     this.isDamaged = false;
 
+    this.hasLostCrave=false
+
     this.damagedWalkRightImg = new Image();
     this.damagedWalkRightImg.src = "images/character/damaged/char-right.png";
 
@@ -56,6 +58,9 @@ class Character {
 
     this.audioDamage = new Audio();
     this.audioDamage.src = "sounds/damage.mp3";
+
+    this.audioLoseCrave=new Audio()
+    this.audioLoseCrave.src="sounds/losecandy.mp3"
   }
 
   draw = () => {
@@ -64,24 +69,30 @@ class Character {
 
   move = () => {
     //
-    if (this.isMovingRight && this.x < canvas.width - this.w) {
-      // es true cuando se pulsa la tecla,false cuando se deja de pulsar
-      if (!this.isDamaged) {
-        this.img = this.walkingRightImg;
-      } else {
-        this.img = this.damagedWalkRightImg;
+    if(!this.isDamaged)
+    {
+
+      if (this.isMovingRight && this.x < canvas.width - this.w) {
+        // es true cuando se pulsa la tecla,false cuando se deja de pulsar
+        if (!this.isDamaged) {
+          this.img = this.walkingRightImg;
+        } else {
+          this.img = this.damagedWalkRightImg;
+        }
+  
+        this.x += this.speed;
+      }
+      if (this.isMovingLeft && this.x > 0 && !this.isEating) {
+        if (!this.isDamaged) {
+          this.img = this.walkingLeftImg;
+        } else {
+          this.img = this.damagedWalkLeftImg;
+        }
+        this.x -= this.speed;
       }
 
-      this.x += this.speed;
     }
-    if (this.isMovingLeft && this.x > 0 && !this.isEating) {
-      if (!this.isDamaged) {
-        this.img = this.walkingLeftImg;
-      } else {
-        this.img = this.damagedWalkLeftImg;
-      }
-      this.x -= this.speed;
-    }
+   
   };
 
   stopEat = () => {
@@ -92,7 +103,9 @@ class Character {
       this.img = this.damagedIdleImg;
     }
   };
+stopLoseCrave=()=>{
 
+}
   startEatCrave = () => {
     this.playAudio(this.audioEating);
 
@@ -106,6 +119,12 @@ class Character {
     setTimeout(this.stopEat, 50);
   };
 
+loseCrave=()=>{
+  this.playAudio(this.audioLoseCrave)
+
+
+}
+
   startDisgusted = () => {
     this.playAudio(this.audioDisgust);
     this.isEating = true;
@@ -116,6 +135,7 @@ class Character {
     }
     setTimeout(this.stopEat, 65);
   };
+
   playAudio = (audio) => {
     if (!btnSoundGame.classList.contains("off")) {
       audio.volume=0.4
