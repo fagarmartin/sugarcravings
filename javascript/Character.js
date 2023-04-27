@@ -66,7 +66,7 @@ class Character {
 
     this.audioDamage = new Audio();
     this.audioDamage.src = "sounds/damage.mp3";
-    this.audioDamage.volume=0.05
+    this.audioDamage.volume=0.03
 
     this.audioLoseCrave=new Audio()
     this.audioLoseCrave.src="sounds/losecandy.mp3"
@@ -175,7 +175,7 @@ loseCrave=()=>{
   damageScore = () => {
     this.isDamaged = true;
    
-    this.audioDamage.volume=0.5
+    
     this.playAudio(this.audioDamage)
     this.img = this.damagedDisgustedImg;
     this.timeOutDamaged=new Timeout(()=>{
