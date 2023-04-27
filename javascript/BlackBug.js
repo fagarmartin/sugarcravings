@@ -31,7 +31,7 @@ class BlackBug {
 
     this.jumpSound = new Audio();
     this.jumpSound.src = "sounds/jumpingbug.mp3";
-    this.jumpSound.volume=0.01
+    this.jumpSound.volume=0.05
   }
 
   draw = () => {
@@ -86,7 +86,7 @@ class BlackBug {
   };
   playAudio = (audio) => {
     if (!btnSoundGame.classList.contains("off")) {
-      audio.volume = 0.03;
+      audio.volume = 0.05;
       audio.play(); // solo llama a la funcion si true
     }
   };
