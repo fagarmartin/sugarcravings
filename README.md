@@ -2,7 +2,7 @@
 
 ## [Juego!](https://redkouya.github.io/sugarcravings/)
 
-![Logo del juego]([https://github.com/redkouya/sugarcravings/blob/main/images/screens/splashscreen/logo.png?raw=true]
+![Logo del juego](https://github.com/redkouya/sugarcravings/blob/main/images/screens/splashscreen/logo.png?raw=true)
 
 
 # Descripciones
@@ -129,7 +129,7 @@ this.groundPosition = 150; // posicion para que parezca que esta sobre el suelo
 - damageScore () {}
 - startEatCrave() {}
 
-##CandyRed.js
+## CandyRed.js
 
 	this.w 
     this.h    
@@ -144,10 +144,13 @@ this.groundPosition = 150; // posicion para que parezca que esta sobre el suelo
 - draw () {}
 - move () {}
 
-##CandyYelow.js
-##CandyCookie.js
-##CandyCake.js
-##BlackBug.js
+## CandyYelow.js
+## CandyCookie.js
+## CandyCake.js
+## BlackBug.js
+## Crave.js
+## HungerBar.js
+## Timeout.js
 
 
 
