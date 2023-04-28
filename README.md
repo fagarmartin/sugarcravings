@@ -1,6 +1,6 @@
 # Sugar Cravings
 
-## [Juego!](https://redkouya.github.io/sugarcravings/)
+## [Juega!](https://redkouya.github.io/sugarcravings/)
 
 ![Logo del juego](https://github.com/redkouya/sugarcravings/blob/main/images/screens/splashscreen/logo.png?raw=true)
 
