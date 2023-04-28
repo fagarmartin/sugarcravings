@@ -26,7 +26,7 @@ Cuidado porque es muy quisquilloso y sólo le gustará un tipo de dulce según e
 
 - Cambios de imagen del personaje según estado en el que se encuentre.
 
-- Dibujado de personajes, caramelos, barra de vida, puntuación y caramelo "antojo".
+- Dibujado de personajes, caramelos, barra de vida, puntuación y caramelo elegido.
 
 
 # Futuras Funcionalidades
