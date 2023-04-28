@@ -6,7 +6,7 @@
 
 
 # Descripciones
-``
+
 Ayuda a nuestro amigo verde a comer todos los caramelos que pueda. Por suerte caen del cielo todo el rato. 
 Cuidado porque es muy quisquilloso y sólo le gustará un tipo de dulce según el momento.
 
