@@ -36,10 +36,10 @@ img.animate-logo {
   }
 }
 
-.container{
-  display:flex;
+.container {
+  display: flex;
   justify-content: center;
-  margin-top:40px;
+  margin-top: 40px;
 }
 
 #pause-msg {
@@ -52,20 +52,20 @@ img.animate-logo {
   color: darkcyan;
 }
 
-#messages{
-  display:flex;
+#messages {
+  display: flex;
   flex-direction: column;
   text-align: center;
 }
 
-#in-game-msg{
-  color:darkred;
+#in-game-msg {
+  color: darkred;
   font-family: "Roboto", sans-serif;
   font-size: 25px;
 }
 
 #game {
-  display: none;  
+  display: none;
 }
 
 #audio-intro {

@@ -5,7 +5,6 @@ class Game {
     this.background = new Image();
     this.background.src = "images/background.png";
     this.score = new Score(); // depende del caramelo
-    //this.hungryBar = 50; // al principio porcentaje (?)
     this.character = new Character();
     this.candyArr = [];
     this.respawnGapY = 200; // espacio que recorre el ultimo elemento creado para la creacion de uno nuevo
@@ -14,10 +13,20 @@ class Game {
     this.isGameOn = true;
     this.crave; // marcador de caramelo bueno
     this.randomCrave = 0; // se usara para ver si es de la clase de esta posicion en arrayCandyColors
-    this.arrayLevels = [0, 250, 600, 900, 1200,1600,1950,2500,3000];
-    this.arrayIsLevel = [false, false, false, false, false, false, false, false, false];
-    this.sumaVelocidadLevel=[0,0,0.25,0.5,1,1.5,1.6,1.75,2]
-    this.restBarLevel=[0,5,10,20,50,60,70,75]
+    this.arrayLevels = [0, 250, 600, 900, 1200, 1600, 1950, 2500, 3000];
+    this.arrayIsLevel = [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+    ];
+    this.sumaVelocidadLevel = [0, 0, 0.25, 0.5, 1, 1.5, 1.6, 1.75, 2];
+    this.restBarLevel = [0, 5, 10, 20, 50, 60, 70, 75];
     this.maxLevel = this.arrayLevels.length - 1;
     this.currentLevel = 0; // servira para saber en que nivel esta y de multiplicador para subir velocidad por nivel
     this.maxHungryBar = 100; // porcentaje maximo
@@ -26,11 +35,9 @@ class Game {
     this.maxRandomBlackBug = 10000;
     this.minRandomBlackBug = 5000;
     this.firstTime = true;
-    //this.oldCrave=-1; // para compararlo con el nuevo valor
 
     // time outs necesarios
 
-    //this.damage=45 // daño que hace el bicho al chocar con el personaje
     this.arrayCandyColors = [
       "CandyRed",
       "CandyYellow",
@@ -53,53 +60,50 @@ class Game {
   };
 
   gameOver = () => {
-    if (!this.isInmortal) {
-      // para testear
-      if (this.hungerBarUI.value <= 0) {
-        let maxScore = localStorage.getItem("score");
+    if (this.hungerBarUI.value <= 0) {
+      let maxScore = localStorage.getItem("score");
 
-        if (this.score.value > maxScore) {
-          // si supera la puntuacion maxima guardada
-          msgImproved.style.display = "block";
-          yourScoreDOM.innerText = this.score.value; // muestra la puntuacion en el game over
-          highScoreDOM.innerText = this.score.value;
-          localStorage.setItem("score", this.score.value); // guarda la puntuacion de manera local
-        } else {
-          msgImproved.style.display = "none";
-          yourScoreDOM.innerText = this.score.value;
-          highScoreDOM.innerText = maxScore;
-        }
-        this.pausarAudio();
-        this.isGameOn = false;
-        gameOverScreenDOM.style.display = "block";
-        gameDOM.style.display = "none";
+      if (this.score.value > maxScore) {
+        // si supera la puntuacion maxima guardada
+        msgImproved.style.display = "block";
+        yourScoreDOM.innerText = this.score.value; // muestra la puntuacion en el game over
+        highScoreDOM.innerText = this.score.value;
+        localStorage.setItem("score", this.score.value); // guarda la puntuacion de manera local
+      } else {
+        msgImproved.style.display = "none";
+        yourScoreDOM.innerText = this.score.value;
+        highScoreDOM.innerText = maxScore;
       }
+      this.pausarAudio();
+      this.isGameOn = false;
+      gameOverScreenDOM.style.display = "block";
+      gameDOM.style.display = "none";
     }
   };
   // para que al pausar no se sigan ejecutando los time outs
   pausarTimeOuts = () => {
-    this.checkUndefinedAndPause(this.character.timeOutDamaged);//
-    this.checkUndefinedAndPause(this.character.timeOutEat);//
-    this.checkUndefinedAndPause(this.character.timeOutLoseCrave);//
-    this.checkUndefinedAndPause(this.character.timeOutDisgusted);//
-    this.checkUndefinedAndPause(this.crave.timeOutColorChange);    //
-    this.checkUndefinedAndPause(this.timeOutBlackBug)//
-    this.checkUndefinedAndPause(this.timeOutMsg)//
-    this.blackBugs.forEach((eachBug)=>{
-      this.checkUndefinedAndPause(eachBug.timeOutDamaged);//
-    })
+    this.checkUndefinedAndPause(this.character.timeOutDamaged); //
+    this.checkUndefinedAndPause(this.character.timeOutEat); //
+    this.checkUndefinedAndPause(this.character.timeOutLoseCrave); //
+    this.checkUndefinedAndPause(this.character.timeOutDisgusted); //
+    this.checkUndefinedAndPause(this.crave.timeOutColorChange); //
+    this.checkUndefinedAndPause(this.timeOutBlackBug); //
+    this.checkUndefinedAndPause(this.timeOutMsg); //
+    this.blackBugs.forEach((eachBug) => {
+      this.checkUndefinedAndPause(eachBug.timeOutDamaged); //
+    });
   };
   reanudarTimeOuts = () => {
     this.checkUndefinedAndRun(this.character.timeOutDamaged);
     this.checkUndefinedAndRun(this.character.timeOutEat);
     this.checkUndefinedAndRun(this.character.timeOutLoseCrave);
-    this.checkUndefinedAndRun(this.character.timeOutDisgusted);  
+    this.checkUndefinedAndRun(this.character.timeOutDisgusted);
     this.checkUndefinedAndRun(this.crave.timeOutColorChange);
-    this.checkUndefinedAndRun(this.timeOutMsg)
-    this.checkUndefinedAndRun(this.timeOutBlackBug)
-    this.blackBugs.forEach((eachBug)=>{
+    this.checkUndefinedAndRun(this.timeOutMsg);
+    this.checkUndefinedAndRun(this.timeOutBlackBug);
+    this.blackBugs.forEach((eachBug) => {
       this.checkUndefinedAndRun(eachBug.timeOutDamaged);
-    })
+    });
   };
 
   checkUndefinedAndRun = (timeOutObject) => {
@@ -115,7 +119,7 @@ class Game {
   pausarAudio = () => {
     audioIntro.pause(); // para audio de intro
     audioIntro.currentTime = 0;
-    audioIntro.isLoop=true
+    audioIntro.isLoop = true;
   };
 
   createCandy = (tipoCandy) => {
@@ -123,9 +127,7 @@ class Game {
       this.candyArr.length === 0 ||
       this.candyArr[this.candyArr.length - 1].y > this.respawnGapY
     ) {
-      let randomPosX = Math.random() * this.randomLimit;
-      //console.log(randomPosX)
-      //  console.log(0>=randomPosX)
+      let randomPosX = Math.random() * this.randomLimit;     
       let newCandy = this.chooseRandomCandy(randomPosX); // hace un random para el color de los caramelos y devuelve el objeto
       this.candyArr.push(newCandy);
     }
@@ -140,13 +142,22 @@ class Game {
       newCandy = new CandyRed(posX, this.sumaVelocidadLevel[this.currentLevel]);
       return newCandy;
     } else if (this.arrayCandyColors[randomCandy] === "CandyYellow") {
-      newCandy = new CandyYellow(posX, this.sumaVelocidadLevel[this.currentLevel]); //aumenta la velocidad con current level
+      newCandy = new CandyYellow(
+        posX,
+        this.sumaVelocidadLevel[this.currentLevel]
+      ); //aumenta la velocidad con current level
       return newCandy;
     } else if (this.arrayCandyColors[randomCandy] === "CandyCookie") {
-      newCandy = new CandyCookie(posX, this.sumaVelocidadLevel[this.currentLevel]);
+      newCandy = new CandyCookie(
+        posX,
+        this.sumaVelocidadLevel[this.currentLevel]
+      );
       return newCandy;
     } else if (this.arrayCandyColors[randomCandy] === "CandyCake") {
-      newCandy = new CandyCake(posX, this.sumaVelocidadLevel[this.currentLevel]);
+      newCandy = new CandyCake(
+        posX,
+        this.sumaVelocidadLevel[this.currentLevel]
+      );
       return newCandy;
     }
   };
@@ -164,7 +175,6 @@ class Game {
 
         this.crave.changeColorFrame();
       }
-      //this.candyCreationGap -= 50; // cree los elementos más rápido
     }
   };
 
@@ -179,7 +189,6 @@ class Game {
 
   checkCollisionCandy = () => {
     this.candyArr.forEach((eachCandy, count) => {
-      
       if (
         //colisiona con personaje
         eachCandy.x < this.character.x + this.character.w &&
@@ -190,42 +199,39 @@ class Game {
         let isCrave = this.checkCrave(eachCandy, count); // checkea si es el caramelo correcto y actualiza score
         let candyRestHungryBar = eachCandy.restHungryBar;
         let candyScore = eachCandy.score;
-        let candyHungryBar=eachCandy.hungryBar;
-        let restLevel=this.restBarLevel[this.currentLevel]
+        let candyHungryBar = eachCandy.hungryBar;
+        let restLevel = this.restBarLevel[this.currentLevel];
         this.candyArr.splice(count, 1);
 
         if (isCrave) {
           // si es igual al marcado
           this.character.startEatCrave(); // empieza a comer
           this.score.sumScore(candyScore);
-          // this.score.value += candyScore; // suma la puntuacion de cada caramelo
+
           if (this.hungerBarUI.value < this.maxHungryBar - candyHungryBar) {
-            
             this.hungerBarUI.value += candyHungryBar; // solo descuenta barra hambre si deja caer el caramelo del antojo
-            console.log(this.hungerBarUI.value,candyHungryBar)
+           
           } else {
             this.hungerBarUI.value = this.maxHungryBar;
           }
         } else {
           this.character.startDisgusted();
           if (this.hungerBarUI.canLoseValue) {
-            
-            this.hungerBarUI.value = this.hungerBarUI.value -(candyRestHungryBar+restLevel);
+            this.hungerBarUI.value =
+              this.hungerBarUI.value - (candyRestHungryBar + restLevel);
           }
-
-         
         }
       } else if (
         //si choca contra el suelo
         eachCandy.y >
         canvas.height - (this.character.groundPosition - this.candyCollisionGap)
       ) {
-        let restLevel=this.restBarLevel[this.currentLevel]
+        let restLevel = this.restBarLevel[this.currentLevel];
 
         if (this.checkCrave(eachCandy, count)) {
           // si se ha caido un caramelo bueno vuelve a hacer random
-          this.hungerBarUI.restValue(eachCandy.restHungryBar+restLevel); // checkea si le puede restar valor
-          //this.hungerBarUI.value -= candyHungryBar;
+          this.hungerBarUI.restValue(eachCandy.restHungryBar + restLevel); // checkea si le puede restar valor
+
           if (this.hungerBarUI.canLoseValue) {
             this.character.loseCrave();
             this.chooseRandomCrave();
@@ -251,7 +257,6 @@ class Game {
           if (!eachBug.hasDamaged && !this.character.isDamaged) {
             // para que solo reste una vez cuando colisiona
             this.score.restScore(eachBug.damage);
-            // this.score.value -= eachBug.damage;
             this.score.value = this.checkScoreZero(this.score.value);
             eachBug.doDamage();
             this.character.damageScore();
@@ -276,9 +281,9 @@ class Game {
 
   createBlackBug = () => {
     let movingDir = Math.floor(Math.random() * 2);
-    //console.log("MOVINGDIR",movingDir)
-   
-    this.blackBugs.push(new BlackBug(movingDir,this.sumaVelocidadLevel[this.currentLevel]));
+    this.blackBugs.push(
+      new BlackBug(movingDir, this.sumaVelocidadLevel[this.currentLevel])
+    );
     this.crave.timedMessage(
       msgInGame,
       "Avoid the bug or it will take your points!",
@@ -293,23 +298,19 @@ class Game {
       this.currentLevel < this.arrayLevels.length - 1
     ) {
       // para que solo entre una vez
-      //this.timeOutBlackBug = new Timeout(this.createBlackBug, 100);
-      let randomTime=Math.random() * (this.maxRandomBlackBug - this.minRandomBlackBug) +  this.minRandomBlackBug
-      //console.log(randomTime,"RANDOMTIME")
-      this.timeOutBlackBug = new Timeout(this.createBlackBug,randomTime);
-      //setTimeout(this.createBlackBug,Math.random() * (this.maxRandomBlackBug - this.minRandomBlackBug) + this.minRandomBlackBug);
-      //setTimeout(this.createBlackBug,1000);
-      // console.log("SUBE DE NIVEL", this.currentLevel);
+
+      let randomTime =
+        Math.random() * (this.maxRandomBlackBug - this.minRandomBlackBug) +
+        this.minRandomBlackBug;
+
+      this.timeOutBlackBug = new Timeout(this.createBlackBug, randomTime);
       this.arrayIsLevel[this.currentLevel] = true;
       this.currentLevel++;
-      if(this.respawnGapY<=0)
-      {
-        this.respawnGapY=5
-      }
-      else{
+      if (this.respawnGapY <= 0) {
+        this.respawnGapY = 5;
+      } else {
         this.respawnGapY -= 10;
       }
-      
     }
   };
 

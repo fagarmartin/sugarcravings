@@ -1,5 +1,5 @@
 class BlackBug {
-  constructor(isMovingRight,speedSum) {
+  constructor(isMovingRight, speedSum) {
     this.isMovingRight = isMovingRight;
     this.w = 40;
     this.h = 40;
@@ -18,7 +18,7 @@ class BlackBug {
     this.speedFall = 2;
     this.isJumping = true;
     this.isFalling = false;
-    this.speedHorizontal = 3+speedSum;
+    this.speedHorizontal = 3 + speedSum;
     this.canGo = false;
     this.countMove = 0;
     this.maxCountMove = 1;
@@ -31,7 +31,7 @@ class BlackBug {
 
     this.jumpSound = new Audio();
     this.jumpSound.src = "sounds/jumpingbug.mp3";
-    this.jumpSound.volume=0.03
+    this.jumpSound.volume = 0.03;
   }
 
   draw = () => {
@@ -55,7 +55,6 @@ class BlackBug {
     }
 
     if (this.isMovingRight) {
-      // console.log("ISMOVINGRIGHT")
       if (this.isJumping) {
         this.y -= this.speedJump;
         this.x += this.speedHorizontal;
@@ -64,12 +63,10 @@ class BlackBug {
         this.x += this.speedHorizontal;
       }
       if (this.x >= canvas.width - this.w && this.isMovingRight) {
-        // this.playAudio(this.jumpSound)
         this.isMovingRight = false;
         this.countMove++;
       }
     } else {
-      //console.log("ISMOVINGLEFT")
       if (this.isJumping) {
         this.y -= this.speedJump;
         this.x -= this.speedHorizontal;
@@ -78,7 +75,6 @@ class BlackBug {
         this.x -= this.speedHorizontal;
       }
       if (this.x <= 0 && !this.isMovingRight) {
-        //this.playAudio(this.jumpSound)
         this.isMovingRight = true;
         this.countMove++;
       }
@@ -91,16 +87,10 @@ class BlackBug {
     }
   };
   doDamage = () => {
-      this.canDamage = false;
-      this.timeOutDamage = new Timeout(() => {
+    this.canDamage = false;
+    this.timeOutDamage = new Timeout(() => {
       this.canDamage = true;
       this.hasDamaged = false;
     }, 4000);
-
-    /* setTimeout(()=>{
-      this.canDamage=true
-      this.hasDamaged=false      
-    },4000)
-*/
   };
 }

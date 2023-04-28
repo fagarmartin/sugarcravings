@@ -10,14 +10,12 @@ const btnRestartGame = document.querySelector("#restart-btn");
 const btnPauseGame = document.querySelector("#btn-pause");
 const btnSoundGame = document.querySelector(".btn-sound");
 
-const msgInGame=document.querySelector("#in-game-msg")
+const msgInGame = document.querySelector("#in-game-msg");
 
 const msgPause = document.querySelector("#pause-msg");
 
 const audioIntro = new Audio();
 audioIntro.src = "sounds/intro.mp3";
-
-
 
 /*para actualizar score*/
 
@@ -31,14 +29,14 @@ let moveRightKey = "KeyD";
 
 const restartGame = () => {
   gameOverScreenDOM.style.display = "none";
-  msgInGame.innerText=""
+  msgInGame.innerText = "";
   startGame();
 };
 
 const startAudio = () => {
   if (!btnSoundGame.classList.contains("off")) {
     audioIntro.volume = 0.05;
-    audioIntro.isLoop=true
+    audioIntro.isLoop = true;
     audioIntro.play();
   }
 };
@@ -48,17 +46,7 @@ const startGame = () => {
   gameDOM.style.display = "block";
   gameObj = new Game();
   gameObj.chooseRandomCrave();
-
-  //1. Cambiar las pantallas del juego
-  // todo
-
-  //2. Crear los elementos del juego
-
-  //3. Iniciar el bucle del juego (recursion)
- 
-    gameObj.gameLoop();
- 
-  
+  gameObj.gameLoop();
 };
 
 //comprueba hacia donde esta moviendose segun tecla presionada y pone la variable a true
@@ -73,15 +61,15 @@ const pause = () => {
   if (gameObj.isGameOn) {
     msgPause.style.display = "block";
     gameObj.isGameOn = false;
-    gameObj.pausarTimeOuts()
+    gameObj.pausarTimeOuts();
     audioIntro.pause();
   } else {
     // solo si la musica no esta pausada
     gameObj.isGameOn = true;
     if (!btnSoundGame.classList.contains("off")) {
-      startAudio()
+      startAudio();
     }
-    
+
     msgPause.style.display = "none";
     gameObj.gameLoop();
   }
@@ -93,19 +81,20 @@ window.addEventListener("keydown", (event) => {
 window.addEventListener("keyup", (event) => {
   checkKeyDown(event, false);
 });
+
 btnStartGame.addEventListener("click", startGame);
 btnRestartGame.addEventListener("click", restartGame);
 btnPauseGame.addEventListener("click", pause);
 btnSoundGame.addEventListener("click", () => {
-  btnSoundGame.classList.toggle("off"); //comprueba si el juego esta pausado para darle a play al audio
+btnSoundGame.classList.toggle("off"); //comprueba si el juego esta pausado para darle a play al audio
   if (
     audioIntro.paused &&
     gameObj.isGameOn &&
     !btnSoundGame.classList.contains("off")
   ) {
-    startAudio()
+    startAudio();
   } else {
     audioIntro.pause();
   }
 });
-//window.addEventListener("load", startAudio);
+

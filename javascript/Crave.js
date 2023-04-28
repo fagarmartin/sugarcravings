@@ -51,11 +51,7 @@ messages=(msg)=>{
     this.timeOutColorChange=new Timeout(()=>{
       this.isRed = false;
       msgInGame.innerText=""
-    },4000)
-   
-   /* setTimeout(() => {
-      this.isRed = false;
-      msgInGame.innerText=""
-    }, 4000);*/
+    },4000)   
+  
   };
 }
